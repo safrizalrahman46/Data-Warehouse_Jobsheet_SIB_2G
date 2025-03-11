@@ -1,0 +1,6 @@
+Customer;Product;Region;Date;Item unit price;No.Items;Total Sale
+Customer 3;         ;MLG;7/24/2019;168.9;2;337.9
+Customer 2;Avanza AT;   ;;168.9;15;2534.2
+Customer 1;         ;   ;;340.9;7;2386.7
+Customer 2;         ;KDR;8/7/2020;800;14;11199.3
+Customer 1;Avanza AT;   ;8/12/2020;168.9;4;675.8
