@@ -438,17 +438,17 @@
   </notepads>
   <order>
     <hop>
-      <from>Filter rows</from>
+      <from>Filter data</from>
       <to>Microsoft Excel output</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>CSV file input</from>
-      <to>Filter rows</to>
+      <to>Filter data</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows</from>
+      <from>Filter data</from>
       <to>Text file output</to>
       <enabled>Y</enabled>
     </hop>
@@ -680,7 +680,7 @@
     </GUI>
   </step>
   <step>
-    <name>Filter rows</name>
+    <name>Filter data</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -817,7 +817,7 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding/>
+    <encoding>windows-1252</encoding>
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
