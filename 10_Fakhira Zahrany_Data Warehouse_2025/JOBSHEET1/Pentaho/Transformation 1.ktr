@@ -437,11 +437,6 @@
   </notepads>
   <order>
     <hop>
-      <from>Input File CSV</from>
-      <to>Filter data</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Filter data</from>
       <to>Text file output</to>
       <enabled>Y</enabled>
@@ -449,6 +444,11 @@
     <hop>
       <from>Filter data</from>
       <to>Microsoft Excel output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Input File CSV</from>
+      <to>Filter data</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -535,13 +535,6 @@
                                     <function>IS NOT NULL</function>
                                     <rightvalue/>
                                   </condition>
-                                  <condition>
-                                    <negated>N</negated>
-                                    <operator>AND</operator>
-                                    <leftvalue/>
-                                    <function>=</function>
-                                    <rightvalue/>
-                                  </condition>
                                 </conditions>
                               </condition>
                             </conditions>
@@ -582,7 +575,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>D:\HIRA\01_FAKHIRAZAHRANY\KULIAH\01. MATKUL\SEMESTER 4\05. DATA WAREHOUSE\Week 1\CarDistributionSales.csv</filename>
+    <filename>D:\HIRA\01_FAKHIRAZAHRANY\KULIAH\01. MATKUL\SEMESTER 4\05. DATA WAREHOUSE\JOBSHEET1\Input Data Pentaho\CarDistributionSales.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
