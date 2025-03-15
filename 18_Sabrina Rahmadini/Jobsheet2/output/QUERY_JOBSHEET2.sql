@@ -70,8 +70,7 @@ LEFT JOIN customers c2 ON staff.employeeNumber = c2.salesRepEmployeeNumber
 GROUP BY e.employeeNumber
 ORDER BY total_customer DESC;*/
 
-/* QUERY TUGAS 3 - REPORT PENJUALAN PER TAHUN FOON YE TSENG DAN PAMELA CASTILLO
-SELECT 
+/*SELECT 
     YEAR(p.paymentDate) AS Tahun,
     SUM(CASE WHEN CONCAT(e.firstName, ' ', e.lastName) = 'Foon Yue Tseng' THEN p.amount ELSE 0 END) AS `Foon Yue Tseng`,
     SUM(CASE WHEN CONCAT(e.firstName, ' ', e.lastName) = 'Pamela Castillo' THEN p.amount ELSE 0 END) AS `Pamela Castillo`
@@ -81,5 +80,25 @@ JOIN payments p ON c.customerNumber = p.customerNumber
 WHERE CONCAT(e.firstName, ' ', e.lastName) IN ('Foon Yue Tseng', 'Pamela Castillo')
 GROUP BY YEAR(p.paymentDate)
 ORDER BY Tahun;*/
+
+/* Case Study*/
+SELECT 
+    e.officeCode,
+    o.city, 
+    SUM(CASE WHEN YEAR(p.paymentDate) = 2003 THEN p.amount ELSE 0 END ) AS '2003', 
+    SUM(CASE WHEN YEAR(p.paymentDate) = 2004 THEN p.amount ELSE 0 END ) AS '2004', 
+    SUM(CASE WHEN YEAR(p.paymentDate) = 2005 THEN p.amount ELSE 0 END ) AS '2005', 
+    SUM(p.amount) AS total_omset
+FROM payments p
+JOIN customers c ON p.customerNumber = c.customerNumber
+JOIN employees e ON c.salesRepEmployeeNumber = e.employeeNumber
+JOIN offices o ON e.officeCode = o.officeCode
+GROUP BY e.officeCode, o.country
+ORDER BY o.country;
+
+
+
+
+
 
 
