@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Jobsheet 1 Evan</name>
+    <name>Transformation 1</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,28 +427,28 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/09 07:18:18.359</created_date>
+    <created_date>2025/03/14 13:07:18.445</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/09 07:18:18.359</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2025/03/14 13:07:18.445</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <order>
     <hop>
-      <from>Filter data</from>
-      <to>Microsoft Excel output</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>CSV file input</from>
-      <to>Filter data</to>
+      <to>Filter Data</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter data</from>
+      <from>Filter Data</from>
       <to>Text file output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter Data</from>
+      <to>Microsoft Excel writer</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -464,7 +463,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>E:\KULIAH POLINEMA\Semester 4\Data Warehouse\Data-Warehouse_Jobsheet_SIB_2G\09_Evan Diantha Fafian\Jobsheet 1 Data Warehouse Sederhana dan Pengenalan PDI Spoon\data\CarDistributionSales.csv</filename>
+    <filename>/Users/nazril/Downloads/CarDistributionSales.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -483,7 +482,7 @@
         <name>Customer</name>
         <type>String</type>
         <format/>
-        <currency>IDR</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>10</length>
@@ -494,7 +493,7 @@
         <name>Product</name>
         <type>String</type>
         <format/>
-        <currency>IDR</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>9</length>
@@ -505,7 +504,7 @@
         <name>Region</name>
         <type>String</type>
         <format/>
-        <currency>IDR</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>3</length>
@@ -516,7 +515,7 @@
         <name>Date</name>
         <type>Date</type>
         <format>MM/dd/yyyy</format>
-        <currency>IDR</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>-1</length>
@@ -525,9 +524,9 @@
       </field>
       <field>
         <name>Item unit price</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>IDR</currency>
+        <type>BigNumber</type>
+        <format>#.##</format>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>6</length>
@@ -538,7 +537,7 @@
         <name>No.Items</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>IDR</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>15</length>
@@ -547,9 +546,9 @@
       </field>
       <field>
         <name>Total Sale</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>IDR</currency>
+        <type>BigNumber</type>
+        <format>#.##</format>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <length>7</length>
@@ -566,235 +565,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Microsoft Excel output</name>
-    <type>ExcelOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <header>Y</header>
-    <footer>N</footer>
-    <encoding/>
-    <append>N</append>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <file>
-      <name>E:\KULIAH POLINEMA\Semester 4\Data Warehouse\Data-Warehouse_Jobsheet_SIB_2G\09_Evan Diantha Fafian\Jobsheet 1 Data Warehouse Sederhana dan Pengenalan PDI Spoon\data\failedSalesCarDistribution</name>
-      <extention>xls</extention>
-      <do_not_open_newfile_init>N</do_not_open_newfile_init>
-      <create_parent_folder>N</create_parent_folder>
-      <split>N</split>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <sheetname>Sheet1</sheetname>
-      <autosizecolums>N</autosizecolums>
-      <nullisblank>N</nullisblank>
-      <protect_sheet>N</protect_sheet>
-      <password>Encrypted </password>
-      <splitevery>0</splitevery>
-      <usetempfiles>N</usetempfiles>
-      <tempdirectory/>
-    </file>
-    <template>
-      <enabled>N</enabled>
-      <append>N</append>
-      <filename>template.xls</filename>
-    </template>
-    <fields>
-      <field>
-        <name>Customer</name>
-        <type>String</type>
-        <format/>
-      </field>
-      <field>
-        <name>Product</name>
-        <type>String</type>
-        <format/>
-      </field>
-      <field>
-        <name>Region</name>
-        <type>String</type>
-        <format/>
-      </field>
-      <field>
-        <name>Date</name>
-        <type>Date</type>
-        <format/>
-      </field>
-      <field>
-        <name>Item unit price</name>
-        <type>Number</type>
-        <format>0000.00</format>
-      </field>
-      <field>
-        <name>No.Items</name>
-        <type>Integer</type>
-        <format/>
-      </field>
-      <field>
-        <name>Total Sale</name>
-        <type>Number</type>
-        <format>00000.00</format>
-      </field>
-    </fields>
-    <custom>
-      <header_font_name>arial</header_font_name>
-      <header_font_size>10</header_font_size>
-      <header_font_bold>N</header_font_bold>
-      <header_font_italic>N</header_font_italic>
-      <header_font_underline>no</header_font_underline>
-      <header_font_orientation>horizontal</header_font_orientation>
-      <header_font_color>black</header_font_color>
-      <header_background_color>none</header_background_color>
-      <header_row_height>255</header_row_height>
-      <header_alignment>left</header_alignment>
-      <header_image/>
-      <row_font_name>arial</row_font_name>
-      <row_font_size>10</row_font_size>
-      <row_font_color>black</row_font_color>
-      <row_background_color>none</row_background_color>
-    </custom>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>672</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter data</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Text file output</send_true_to>
-    <send_false_to>Microsoft Excel output</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>Customer</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <conditions>
-              <condition>
-                <negated>N</negated>
-                <leftvalue>Product</leftvalue>
-                <function>IS NOT NULL</function>
-                <rightvalue/>
-              </condition>
-              <condition>
-                <negated>N</negated>
-                <operator>AND</operator>
-                <conditions>
-                  <condition>
-                    <negated>N</negated>
-                    <leftvalue>Region</leftvalue>
-                    <function>IS NOT NULL</function>
-                    <rightvalue/>
-                  </condition>
-                  <condition>
-                    <negated>N</negated>
-                    <operator>AND</operator>
-                    <conditions>
-                      <condition>
-                        <negated>N</negated>
-                        <leftvalue>Date</leftvalue>
-                        <function>IS NOT NULL</function>
-                        <rightvalue/>
-                      </condition>
-                      <condition>
-                        <negated>N</negated>
-                        <operator>AND</operator>
-                        <conditions>
-                          <condition>
-                            <negated>N</negated>
-                            <leftvalue>Item unit price</leftvalue>
-                            <function>IS NOT NULL</function>
-                            <rightvalue/>
-                          </condition>
-                          <condition>
-                            <negated>N</negated>
-                            <operator>AND</operator>
-                            <conditions>
-                              <condition>
-                                <negated>N</negated>
-                                <leftvalue>No.Items</leftvalue>
-                                <function>IS NOT NULL</function>
-                                <rightvalue/>
-                              </condition>
-                              <condition>
-                                <negated>N</negated>
-                                <operator>AND</operator>
-                                <conditions>
-                                  <condition>
-                                    <negated>N</negated>
-                                    <leftvalue>Total Sale</leftvalue>
-                                    <function>IS NOT NULL</function>
-                                    <rightvalue/>
-                                  </condition>
-                                  <condition>
-                                    <negated>N</negated>
-                                    <operator>AND</operator>
-                                    <leftvalue/>
-                                    <function>=</function>
-                                    <rightvalue/>
-                                  </condition>
-                                </conditions>
-                              </condition>
-                            </conditions>
-                          </condition>
-                        </conditions>
-                      </condition>
-                    </conditions>
-                  </condition>
-                </conditions>
-              </condition>
-            </conditions>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>448</xloc>
-      <yloc>192</yloc>
+      <xloc>112</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -817,16 +589,16 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding>windows-1252</encoding>
+    <encoding/>
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>E:\KULIAH POLINEMA\Semester 4\Data Warehouse\Data-Warehouse_Jobsheet_SIB_2G\09_Evan Diantha Fafian\Jobsheet 1 Data Warehouse Sederhana dan Pengenalan PDI Spoon\data\outputSalesCarDistribution</name>
+      <name>${Internal.Entry.Current.Directory}/outputSalesCarDistribution</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>csv</extention>
+      <extention>txt</extention>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>
@@ -890,9 +662,9 @@
       </field>
       <field>
         <name>Item unit price</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>IDR</currency>
+        <type>BigNumber</type>
+        <format>#.##</format>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -904,7 +676,7 @@
         <name>No.Items</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>IDR</currency>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -914,9 +686,9 @@
       </field>
       <field>
         <name>Total Sale</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>IDR</currency>
+        <type>BigNumber</type>
+        <format>#.##</format>
+        <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
         <nullif/>
@@ -934,8 +706,267 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>192</yloc>
+      <xloc>448</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Microsoft Excel writer</name>
+    <type>TypeExitExcelWriterStep</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <header>Y</header>
+    <footer>N</footer>
+    <makeSheetActive>Y</makeSheetActive>
+    <startingCell>A1</startingCell>
+    <appendOmitHeader>N</appendOmitHeader>
+    <appendOffset>0</appendOffset>
+    <appendEmpty>0</appendEmpty>
+    <rowWritingMethod>overwrite</rowWritingMethod>
+    <forceFormulaRecalculation>N</forceFormulaRecalculation>
+    <leaveExistingStylesUnchanged>N</leaveExistingStylesUnchanged>
+    <extend_data_validation>N</extend_data_validation>
+    <appendLines>N</appendLines>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/failedSalesCarDistribution</name>
+      <extention>xls</extention>
+      <create_parent>N</create_parent>
+      <do_not_open_newfile_init>N</do_not_open_newfile_init>
+      <split>N</split>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <sheetname>Sheet1</sheetname>
+      <autosizecolums>N</autosizecolums>
+      <retain_null_values>Y</retain_null_values>
+      <stream_data>N</stream_data>
+      <protect_sheet>N</protect_sheet>
+      <password>Encrypted </password>
+      <protected_by/>
+      <splitevery>0</splitevery>
+      <if_file_exists>new</if_file_exists>
+      <if_sheet_exists>new</if_sheet_exists>
+    </file>
+    <template>
+      <enabled>N</enabled>
+      <sheet_enabled>N</sheet_enabled>
+      <filename>template.xls</filename>
+      <sheetname/>
+      <hidden>N</hidden>
+    </template>
+    <fields>
+      <field>
+        <name>Customer</name>
+        <type>String</type>
+        <format/>
+        <title>Customer</title>
+        <titleStyleCell/>
+        <styleCell/>
+        <commentField/>
+        <commentAuthorField/>
+        <formula>N</formula>
+        <hyperlinkField/>
+      </field>
+      <field>
+        <name>Product</name>
+        <type>String</type>
+        <format/>
+        <title>Product</title>
+        <titleStyleCell/>
+        <styleCell/>
+        <commentField/>
+        <commentAuthorField/>
+        <formula>N</formula>
+        <hyperlinkField/>
+      </field>
+      <field>
+        <name>Region</name>
+        <type>String</type>
+        <format/>
+        <title>Region</title>
+        <titleStyleCell/>
+        <styleCell/>
+        <commentField/>
+        <commentAuthorField/>
+        <formula>N</formula>
+        <hyperlinkField/>
+      </field>
+      <field>
+        <name>Date</name>
+        <type>Date</type>
+        <format/>
+        <title>Date</title>
+        <titleStyleCell/>
+        <styleCell/>
+        <commentField/>
+        <commentAuthorField/>
+        <formula>N</formula>
+        <hyperlinkField/>
+      </field>
+      <field>
+        <name>Item unit price</name>
+        <type>BigNumber</type>
+        <format/>
+        <title>Item unit price</title>
+        <titleStyleCell/>
+        <styleCell/>
+        <commentField/>
+        <commentAuthorField/>
+        <formula>N</formula>
+        <hyperlinkField/>
+      </field>
+      <field>
+        <name>No.Items</name>
+        <type>Integer</type>
+        <format/>
+        <title>No.Items</title>
+        <titleStyleCell/>
+        <styleCell/>
+        <commentField/>
+        <commentAuthorField/>
+        <formula>N</formula>
+        <hyperlinkField/>
+      </field>
+      <field>
+        <name>Total Sale</name>
+        <type>BigNumber</type>
+        <format/>
+        <title>Total Sale</title>
+        <titleStyleCell/>
+        <styleCell/>
+        <commentField/>
+        <commentAuthorField/>
+        <formula>N</formula>
+        <hyperlinkField/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter Data</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Text file output</send_true_to>
+    <send_false_to>Microsoft Excel writer</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>Customer</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>Product</leftvalue>
+                <function>IS NOT NULL</function>
+                <rightvalue/>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <conditions>
+                  <condition>
+                    <negated>N</negated>
+                    <leftvalue>Region</leftvalue>
+                    <function>IS NOT NULL</function>
+                    <rightvalue/>
+                  </condition>
+                  <condition>
+                    <negated>N</negated>
+                    <operator>AND</operator>
+                    <conditions>
+                      <condition>
+                        <negated>N</negated>
+                        <leftvalue>Date</leftvalue>
+                        <function>IS NOT NULL</function>
+                        <rightvalue/>
+                      </condition>
+                      <condition>
+                        <negated>N</negated>
+                        <operator>AND</operator>
+                        <conditions>
+                          <condition>
+                            <negated>N</negated>
+                            <leftvalue>Item unit price</leftvalue>
+                            <function>IS NOT NULL</function>
+                            <rightvalue/>
+                          </condition>
+                          <condition>
+                            <negated>N</negated>
+                            <operator>AND</operator>
+                            <conditions>
+                              <condition>
+                                <negated>N</negated>
+                                <leftvalue>No.Items</leftvalue>
+                                <function>IS NOT NULL</function>
+                                <rightvalue/>
+                              </condition>
+                              <condition>
+                                <negated>N</negated>
+                                <operator>AND</operator>
+                                <leftvalue>Total Sale</leftvalue>
+                                <function>IS NOT NULL</function>
+                                <rightvalue/>
+                              </condition>
+                            </conditions>
+                          </condition>
+                        </conditions>
+                      </condition>
+                    </conditions>
+                  </condition>
+                </conditions>
+              </condition>
+            </conditions>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
