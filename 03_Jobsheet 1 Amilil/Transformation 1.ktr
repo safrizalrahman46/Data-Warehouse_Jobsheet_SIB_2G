@@ -427,9 +427,9 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/09 00:41:12.297</created_date>
+    <created_date>2025/03/07 13:54:38.415</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/09 00:41:12.297</modified_date>
+    <modified_date>2025/03/07 13:54:38.415</modified_date>
     <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -437,135 +437,23 @@
   </notepads>
   <order>
     <hop>
-      <from>Filter data</from>
-      <to>Text file output</to>
+      <from>CSV file input</from>
+      <to>Filter rows</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter data</from>
+      <from>Filter rows</from>
       <to>Microsoft Excel output</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Input File CSV</from>
-      <to>Filter data</to>
+      <from>Filter rows</from>
+      <to>Text file output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Filter data</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Text file output</send_true_to>
-    <send_false_to>Microsoft Excel output</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>Customer</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <conditions>
-              <condition>
-                <negated>N</negated>
-                <leftvalue>Product</leftvalue>
-                <function>IS NOT NULL</function>
-                <rightvalue/>
-              </condition>
-              <condition>
-                <negated>N</negated>
-                <operator>AND</operator>
-                <conditions>
-                  <condition>
-                    <negated>N</negated>
-                    <leftvalue>Region</leftvalue>
-                    <function>IS NOT NULL</function>
-                    <rightvalue/>
-                  </condition>
-                  <condition>
-                    <negated>N</negated>
-                    <operator>AND</operator>
-                    <conditions>
-                      <condition>
-                        <negated>N</negated>
-                        <leftvalue>Date</leftvalue>
-                        <function>IS NOT NULL</function>
-                        <rightvalue/>
-                      </condition>
-                      <condition>
-                        <negated>N</negated>
-                        <operator>AND</operator>
-                        <conditions>
-                          <condition>
-                            <negated>N</negated>
-                            <leftvalue>Item unit price</leftvalue>
-                            <function>IS NOT NULL</function>
-                            <rightvalue/>
-                          </condition>
-                          <condition>
-                            <negated>N</negated>
-                            <operator>AND</operator>
-                            <conditions>
-                              <condition>
-                                <negated>N</negated>
-                                <leftvalue>No.Items</leftvalue>
-                                <function>IS NOT NULL</function>
-                                <rightvalue/>
-                              </condition>
-                              <condition>
-                                <negated>N</negated>
-                                <operator>AND</operator>
-                                <conditions>
-                                  <condition>
-                                    <negated>N</negated>
-                                    <leftvalue>Total Sale</leftvalue>
-                                    <function>IS NOT NULL</function>
-                                    <rightvalue/>
-                                  </condition>
-                                </conditions>
-                              </condition>
-                            </conditions>
-                          </condition>
-                        </conditions>
-                      </condition>
-                    </conditions>
-                  </condition>
-                </conditions>
-              </condition>
-            </conditions>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>320</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Input File CSV</name>
+    <name>CSV file input</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -575,7 +463,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>D:\HIRA\01_FAKHIRAZAHRANY\KULIAH\01. MATKUL\SEMESTER 4\05. DATA WAREHOUSE\JOBSHEET1\Input Data Pentaho\CarDistributionSales.csv</filename>
+    <filename>C:\Users\Amilil\Downloads\CarDistributionSales.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -678,7 +566,114 @@
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>96</yloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Text file output</send_true_to>
+    <send_false_to>Microsoft Excel output</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>Customer</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>Product</leftvalue>
+                <function>IS NOT NULL</function>
+                <rightvalue/>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <conditions>
+                  <condition>
+                    <negated>N</negated>
+                    <leftvalue>Region</leftvalue>
+                    <function>IS NOT NULL</function>
+                    <rightvalue/>
+                  </condition>
+                  <condition>
+                    <negated>N</negated>
+                    <operator>AND</operator>
+                    <conditions>
+                      <condition>
+                        <negated>N</negated>
+                        <leftvalue>Date</leftvalue>
+                        <function>IS NOT NULL</function>
+                        <rightvalue/>
+                      </condition>
+                      <condition>
+                        <negated>N</negated>
+                        <operator>AND</operator>
+                        <conditions>
+                          <condition>
+                            <negated>N</negated>
+                            <leftvalue>Item unit price</leftvalue>
+                            <function>IS NOT NULL</function>
+                            <rightvalue/>
+                          </condition>
+                          <condition>
+                            <negated>N</negated>
+                            <operator>AND</operator>
+                            <conditions>
+                              <condition>
+                                <negated>N</negated>
+                                <leftvalue>No.Items</leftvalue>
+                                <function>IS NOT NULL</function>
+                                <rightvalue/>
+                              </condition>
+                              <condition>
+                                <negated>N</negated>
+                                <operator>AND</operator>
+                                <leftvalue>Total Sale</leftvalue>
+                                <function>IS NOT NULL</function>
+                                <rightvalue/>
+                              </condition>
+                            </conditions>
+                          </condition>
+                        </conditions>
+                      </condition>
+                    </conditions>
+                  </condition>
+                </conditions>
+              </condition>
+            </conditions>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -699,7 +694,7 @@
     <append>N</append>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>file</name>
+      <name>D:/data-integration/failedSalesCarDistribution</name>
       <extention>xls</extention>
       <do_not_open_newfile_init>N</do_not_open_newfile_init>
       <create_parent_folder>N</create_parent_folder>
@@ -723,6 +718,41 @@
       <filename>template.xls</filename>
     </template>
     <fields>
+      <field>
+        <name>Customer</name>
+        <type>String</type>
+        <format/>
+      </field>
+      <field>
+        <name>Product</name>
+        <type>String</type>
+        <format/>
+      </field>
+      <field>
+        <name>Region</name>
+        <type>String</type>
+        <format/>
+      </field>
+      <field>
+        <name>Date</name>
+        <type>Date</type>
+        <format/>
+      </field>
+      <field>
+        <name>Item unit price</name>
+        <type>Number</type>
+        <format>0000.00</format>
+      </field>
+      <field>
+        <name>No.Items</name>
+        <type>Integer</type>
+        <format/>
+      </field>
+      <field>
+        <name>Total Sale</name>
+        <type>Number</type>
+        <format>00000.00</format>
+      </field>
     </fields>
     <custom>
       <header_font_name>arial</header_font_name>
@@ -750,8 +780,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>208</yloc>
+      <xloc>416</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -780,10 +810,10 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>file</name>
+      <name>D:/data-integration/OutputSalesCarDistribution</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
+      <extention>csv</extention>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>
@@ -797,6 +827,90 @@
       <splitevery/>
     </file>
     <fields>
+      <field>
+        <name>Customer</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>10</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Product</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>9</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Region</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>3</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Date</name>
+        <type>Date</type>
+        <format>MM/dd/yyyy</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Item unit price</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>IDR</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>6</length>
+        <precision>2</precision>
+      </field>
+      <field>
+        <name>No.Items</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>IDR</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Total Sale</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>IDR</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>7</length>
+        <precision>2</precision>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -808,7 +922,7 @@
     </remotesteps>
     <GUI>
       <xloc>448</xloc>
-      <yloc>96</yloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
