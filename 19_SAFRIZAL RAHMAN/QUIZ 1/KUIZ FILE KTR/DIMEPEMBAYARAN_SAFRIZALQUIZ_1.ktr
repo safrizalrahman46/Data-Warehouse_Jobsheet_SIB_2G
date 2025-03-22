@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>DIMENSIWAKKTU_SAFRIZALQUIZ_1</name>
+    <name>DIMEPEMBAYARAN_SAFRIZALQUIZ_1</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,16 +427,16 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/22 13:26:54.175</created_date>
+    <created_date>2025/03/22 16:55:04.409</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/22 13:26:54.175</modified_date>
+    <modified_date>2025/03/22 16:55:04.409</modified_date>
     <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>conn_safrizalquiz1</name>
+    <name>conn_safrizalquiz_dimpembayaran</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
@@ -501,16 +500,6 @@
   </connection>
   <order>
     <hop>
-      <from>Add sequence</from>
-      <to>Calculator</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Calculator</from>
-      <to>   </to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Database lookup</from>
       <to>Filter rows</to>
       <enabled>Y</enabled>
@@ -521,197 +510,16 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Generate rows</from>
-      <to>Add sequence</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>   </from>
+      <from>Select values</from>
       <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Table input</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Add sequence</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <valuename>incrementDay</valuename>
-    <use_database>N</use_database>
-    <connection>conn_safrizalquiz1</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>0</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>495</xloc>
-      <yloc>294</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Calculator</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <failIfNoFile>Y</failIfNoFile>
-    <calculation>
-      <field_name>streamDate</field_name>
-      <calc_type>ADD_DAYS</calc_type>
-      <field_a>CurrentDate</field_a>
-      <field_b>incrementDay</field_b>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamYear</field_name>
-      <calc_type>YEAR_OF_DATE</calc_type>
-      <field_a>streamDate</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamMonth</field_name>
-      <calc_type>MONTH_OF_DATE</calc_type>
-      <field_a>streamDate</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamDay</field_name>
-      <calc_type>DAY_OF_MONTH</calc_type>
-      <field_a>streamDate</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamHari</field_name>
-      <calc_type>ADD_DAYS</calc_type>
-      <field_a>CurrentHari</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamBulan</field_name>
-      <calc_type>MONTH_OF_DATE</calc_type>
-      <field_a>CurrentBulan</field_a>
-      <field_b>incrementDay</field_b>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamKuartal</field_name>
-      <calc_type>YEAR_OF_DATE</calc_type>
-      <field_a>CurrentKuartal</field_a>
-      <field_b>incrementDay</field_b>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamSemester</field_name>
-      <calc_type>YEAR_OF_DATE</calc_type>
-      <field_a>CurrentSemester</field_a>
-      <field_b>incrementDay</field_b>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>559</xloc>
-      <yloc>198</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Database lookup</name>
     <type>DBLookup</type>
@@ -723,111 +531,51 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_safrizalquiz1</connection>
+    <connection>conn_safrizalquiz_dimpembayaran</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
       <schema>safrizalquiz</schema>
-      <table>dimwaktu</table>
+      <table>dimpembayaran</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>streamDate</name>
-        <field>tanggal</field>
+        <name>streamTotal</name>
+        <field>Total</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
-        <name>streamYear</name>
-        <field>tahun</field>
+        <name>streamPembayaran</name>
+        <field>StatusPembayaranID</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
-        <name>streamMonth</name>
-        <field>bulan</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamDay</name>
-        <field>hari</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamHari</name>
-        <field>NamaHari</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamBulan</name>
-        <field>NamaBulan</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamKuartal</name>
-        <field>Kuartal</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamSemester</name>
-        <field>Semester</field>
+        <name>streamTipe</name>
+        <field>TipePembayaranID</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>tanggal</name>
-        <rename>tanggal</rename>
+        <name>Total</name>
+        <rename>Total</rename>
         <default/>
-        <type>None</type>
+        <type>Integer</type>
       </value>
       <value>
-        <name>tahun</name>
-        <rename>tahun</rename>
+        <name>StatusPembayaranID</name>
+        <rename>StatusPembayaranID</rename>
         <default/>
-        <type>None</type>
+        <type>Integer</type>
       </value>
       <value>
-        <name>bulan</name>
-        <rename>bulan</rename>
+        <name>TipePembayaranID</name>
+        <rename>TipePembayaranID</rename>
         <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>hari</name>
-        <rename>hari</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>NamaHari</name>
-        <rename>NamaHari</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>NamaBulan</name>
-        <rename>NamaBulan</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>Kuartal</name>
-        <rename>Kuartal</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>Semester</name>
-        <rename>Semester</rename>
-        <default/>
-        <type>None</type>
+        <type>Integer</type>
       </value>
     </lookup>
     <attributes/>
@@ -839,8 +587,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>208</yloc>
+      <xloc>576</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -863,56 +611,21 @@
         <conditions>
           <condition>
             <negated>N</negated>
-            <leftvalue>Hari</leftvalue>
+            <leftvalue>Total</leftvalue>
             <function>IS NULL</function>
             <rightvalue/>
           </condition>
           <condition>
             <negated>N</negated>
             <operator>AND</operator>
-            <leftvalue>tanggal</leftvalue>
+            <leftvalue>StatusPembayaranID_1</leftvalue>
             <function>IS NULL</function>
             <rightvalue/>
           </condition>
           <condition>
             <negated>N</negated>
             <operator>AND</operator>
-            <leftvalue>Bulan</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>Tahun</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>NamaHari</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>NamaBulan</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>Kuartal</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>Semester</leftvalue>
+            <leftvalue>TipePembayaranID_1</leftvalue>
             <function>IS NULL</function>
             <rightvalue/>
           </condition>
@@ -928,105 +641,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>831</xloc>
-      <yloc>214</yloc>
+      <xloc>720</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Generate rows</name>
-    <type>RowGenerator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>CurrentDate</name>
-        <type>Date</type>
-        <format>dd-MM-yyyy</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>01-01-2003</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>CurrentHari</name>
-        <type>Date</type>
-        <format>dd-MM-yyyy</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>01-01-2003</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>CurrentBulan</name>
-        <type>integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>4</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>CurrentKuartal</name>
-        <type>integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>2</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>CurrentSemester</name>
-        <type>integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>3</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <limit>1825</limit>
-    <never_ending>N</never_ending>
-    <interval_in_ms>5000</interval_in_ms>
-    <row_time_field>now</row_time_field>
-    <last_time_field>FiveSecondsAgo</last_time_field>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>447</xloc>
-      <yloc>198</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>   </name>
+    <name>Select values</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1038,67 +659,40 @@
     </partitioning>
     <fields>
       <field>
-        <name>CurrentDate</name>
+        <name>ID</name>
         <rename/>
       </field>
       <field>
-        <name>incrementDay</name>
+        <name>Total</name>
+        <rename>streamTotal</rename>
+      </field>
+      <field>
+        <name>StatusPembayaranID</name>
+        <rename>streamPembayaran</rename>
+      </field>
+      <field>
+        <name>TipePembayaranID</name>
+        <rename>streamTipe</rename>
+      </field>
+      <field>
+        <name>PembayaranID</name>
         <rename/>
       </field>
       <field>
-        <name>streamDate</name>
+        <name>Total_1</name>
         <rename/>
       </field>
       <field>
-        <name>streamYear</name>
+        <name>StatusPembayaranID_1</name>
         <rename/>
       </field>
       <field>
-        <name>streamMonth</name>
-        <rename/>
-      </field>
-      <field>
-        <name>streamDay</name>
-        <rename/>
-      </field>
-      <field>
-        <name>CurrentHari</name>
-        <rename/>
-      </field>
-      <field>
-        <name>CurrentBulan</name>
-        <rename/>
-      </field>
-      <field>
-        <name>CurrentKuartal</name>
-        <rename/>
-      </field>
-      <field>
-        <name>CurrentSemester</name>
-        <rename/>
-      </field>
-      <field>
-        <name>streamHari</name>
-        <rename/>
-      </field>
-      <field>
-        <name>streamBulan</name>
-        <rename/>
-      </field>
-      <field>
-        <name>streamKuartal</name>
-        <rename/>
-      </field>
-      <field>
-        <name>streamSemester</name>
+        <name>TipePembayaranID_1</name>
         <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
-        <name>CurrentDate</name>
-      </remove>
-      <remove>
-        <name>incrementDay</name>
+        <name>ID</name>
       </remove>
     </fields>
     <attributes/>
@@ -1110,8 +704,230 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>639</xloc>
-      <yloc>294</yloc>
+      <xloc>368</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>conn_safrizalquiz_dimpembayaran</connection>
+    <sql>SELECT *
+FROM pembayaran e
+LEFT JOIN dimpembayaran r
+ON e.ID = r.PembayaranID;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>ID</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>ID</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Number</type>
+        <storagetype>normal</storagetype>
+        <name>Total</name>
+        <length>10</length>
+        <precision>2</precision>
+        <origin>Table input</origin>
+        <comments>Total</comments>
+        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>StatusPembayaranID</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>StatusPembayaranID</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>TipePembayaranID</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>TipePembayaranID</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>PembayaranID</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>PembayaranID</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Number</type>
+        <storagetype>normal</storagetype>
+        <name>Total_1</name>
+        <length>10</length>
+        <precision>2</precision>
+        <origin>Table input</origin>
+        <comments>Total</comments>
+        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>StatusPembayaranID_1</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>StatusPembayaranID</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>TipePembayaranID_1</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>TipePembayaranID</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Singapore</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1126,9 +942,9 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_safrizalquiz1</connection>
+    <connection>conn_safrizalquiz_dimpembayaran</connection>
     <schema>safrizalquiz</schema>
-    <table>dimwaktu</table>
+    <table>dimpembayaran</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -1145,36 +961,16 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>tanggal</column_name>
-        <stream_name>streamDate</stream_name>
+        <column_name>Total</column_name>
+        <stream_name>streamTotal</stream_name>
       </field>
       <field>
-        <column_name>tahun</column_name>
-        <stream_name>streamYear</stream_name>
+        <column_name>StatusPembayaranID</column_name>
+        <stream_name>streamPembayaran</stream_name>
       </field>
       <field>
-        <column_name>bulan</column_name>
-        <stream_name>streamMonth</stream_name>
-      </field>
-      <field>
-        <column_name>hari</column_name>
-        <stream_name>streamDay</stream_name>
-      </field>
-      <field>
-        <column_name>NamaHari</column_name>
-        <stream_name>streamHari</stream_name>
-      </field>
-      <field>
-        <column_name>NamaBulan</column_name>
-        <stream_name>streamBulan</stream_name>
-      </field>
-      <field>
-        <column_name>Kuartal</column_name>
-        <stream_name>streamKuartal</stream_name>
-      </field>
-      <field>
-        <column_name>Semester</column_name>
-        <stream_name>streamSemester</stream_name>
+        <column_name>TipePembayaranID</column_name>
+        <stream_name>streamTipe</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -1186,8 +982,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>208</yloc>
+      <xloc>1056</xloc>
+      <yloc>528</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
