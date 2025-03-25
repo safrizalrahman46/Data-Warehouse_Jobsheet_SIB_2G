@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Transformation 1</name>
+    <name>Jobsheet 3A</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,33 +427,316 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/09 00:41:12.297</created_date>
+    <created_date>2025/03/21 09:37:28.886</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/09 00:41:12.297</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2025/03/21 09:37:28.886</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>conn_dw_destination</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>dw_legendvehicle</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
-      <from>Filter data</from>
-      <to>Text file output</to>
+      <from>Generate rows</from>
+      <to>Add sequence</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter data</from>
-      <to>Microsoft Excel output</to>
+      <from>Add sequence</from>
+      <to>Calculator</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Input File CSV</from>
-      <to>Filter data</to>
+      <from>Calculator</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Filter data</name>
+    <name>Add sequence</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>incrementDay</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>0</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Calculator</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>streamDate</field_name>
+      <calc_type>ADD_DAYS</calc_type>
+      <field_a>CurrentDate</field_a>
+      <field_b>incrementDay</field_b>
+      <field_c/>
+      <value_type>None</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>streamYear</field_name>
+      <calc_type>YEAR_OF_DATE</calc_type>
+      <field_a>streamDate</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>None</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>streamMonth</field_name>
+      <calc_type>MONTH_OF_DATE</calc_type>
+      <field_a>streamDate</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>None</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>streamDay</field_name>
+      <calc_type>DAY_OF_MONTH</calc_type>
+      <field_a>streamDate</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>None</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>conn_dw_destination</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw_legendvehicle</schema>
+      <table>dimdate</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>streamDate</name>
+        <field>date</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>streamYear</name>
+        <field>year</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>streamMonth</name>
+        <field>month</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>streamDay</name>
+        <field>day</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>date</name>
+        <rename>date</rename>
+        <default/>
+        <type>None</type>
+      </value>
+      <value>
+        <name>year</name>
+        <rename>year</rename>
+        <default/>
+        <type>None</type>
+      </value>
+      <value>
+        <name>month</name>
+        <rename>month</rename>
+        <default/>
+        <type>None</type>
+      </value>
+      <value>
+        <name>day</name>
+        <rename>day</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -463,89 +746,38 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Text file output</send_true_to>
-    <send_false_to>Microsoft Excel output</send_false_to>
+    <send_true_to>Table output</send_true_to>
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
         <conditions>
           <condition>
             <negated>N</negated>
-            <leftvalue>Customer</leftvalue>
-            <function>IS NOT NULL</function>
+            <leftvalue>date</leftvalue>
+            <function>IS NULL</function>
             <rightvalue/>
           </condition>
           <condition>
             <negated>N</negated>
             <operator>AND</operator>
-            <conditions>
-              <condition>
-                <negated>N</negated>
-                <leftvalue>Product</leftvalue>
-                <function>IS NOT NULL</function>
-                <rightvalue/>
-              </condition>
-              <condition>
-                <negated>N</negated>
-                <operator>AND</operator>
-                <conditions>
-                  <condition>
-                    <negated>N</negated>
-                    <leftvalue>Region</leftvalue>
-                    <function>IS NOT NULL</function>
-                    <rightvalue/>
-                  </condition>
-                  <condition>
-                    <negated>N</negated>
-                    <operator>AND</operator>
-                    <conditions>
-                      <condition>
-                        <negated>N</negated>
-                        <leftvalue>Date</leftvalue>
-                        <function>IS NOT NULL</function>
-                        <rightvalue/>
-                      </condition>
-                      <condition>
-                        <negated>N</negated>
-                        <operator>AND</operator>
-                        <conditions>
-                          <condition>
-                            <negated>N</negated>
-                            <leftvalue>Item unit price</leftvalue>
-                            <function>IS NOT NULL</function>
-                            <rightvalue/>
-                          </condition>
-                          <condition>
-                            <negated>N</negated>
-                            <operator>AND</operator>
-                            <conditions>
-                              <condition>
-                                <negated>N</negated>
-                                <leftvalue>No.Items</leftvalue>
-                                <function>IS NOT NULL</function>
-                                <rightvalue/>
-                              </condition>
-                              <condition>
-                                <negated>N</negated>
-                                <operator>AND</operator>
-                                <conditions>
-                                  <condition>
-                                    <negated>N</negated>
-                                    <leftvalue>Total Sale</leftvalue>
-                                    <function>IS NOT NULL</function>
-                                    <rightvalue/>
-                                  </condition>
-                                </conditions>
-                              </condition>
-                            </conditions>
-                          </condition>
-                        </conditions>
-                      </condition>
-                    </conditions>
-                  </condition>
-                </conditions>
-              </condition>
-            </conditions>
+            <leftvalue>year</leftvalue>
+            <function>IS NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>month</leftvalue>
+            <function>IS NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>day</leftvalue>
+            <function>IS NULL</function>
+            <rightvalue/>
           </condition>
         </conditions>
       </condition>
@@ -559,14 +791,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>96</yloc>
+      <xloc>576</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Input File CSV</name>
-    <type>CsvInput</type>
+    <name>Generate rows</name>
+    <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -575,99 +807,25 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>D:\HIRA\01_FAKHIRAZAHRANY\KULIAH\01. MATKUL\SEMESTER 4\05. DATA WAREHOUSE\JOBSHEET1\Input Data Pentaho\CarDistributionSales.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
     <fields>
       <field>
-        <name>Customer</name>
-        <type>String</type>
-        <format/>
-        <currency>IDR</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>10</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Product</name>
-        <type>String</type>
-        <format/>
-        <currency>IDR</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>9</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Region</name>
-        <type>String</type>
-        <format/>
-        <currency>IDR</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>3</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Date</name>
+        <name>CurrentDate</name>
         <type>Date</type>
-        <format>MM/dd/yyyy</format>
-        <currency>IDR</currency>
-        <decimal>.</decimal>
-        <group>,</group>
+        <format>dd-MM-yyyy</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>01-01-2003</nullif>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Item unit price</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>IDR</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>6</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>No.Items</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>IDR</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Total Sale</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>IDR</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>7</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
+        <set_empty_string>N</set_empty_string>
       </field>
     </fields>
+    <limit>1825</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -677,14 +835,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>96</yloc>
+      <xloc>96</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel output</name>
-    <type>ExcelOutput</type>
+    <name>Select values</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -693,54 +851,33 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <header>Y</header>
-    <footer>N</footer>
-    <encoding/>
-    <append>N</append>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <file>
-      <name>file</name>
-      <extention>xls</extention>
-      <do_not_open_newfile_init>N</do_not_open_newfile_init>
-      <create_parent_folder>N</create_parent_folder>
-      <split>N</split>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <sheetname>Sheet1</sheetname>
-      <autosizecolums>N</autosizecolums>
-      <nullisblank>N</nullisblank>
-      <protect_sheet>N</protect_sheet>
-      <password>Encrypted </password>
-      <splitevery>0</splitevery>
-      <usetempfiles>N</usetempfiles>
-      <tempdirectory/>
-    </file>
-    <template>
-      <enabled>N</enabled>
-      <append>N</append>
-      <filename>template.xls</filename>
-    </template>
     <fields>
+      <field>
+        <name>CurrentDate</name>
+      </field>
+      <field>
+        <name>incrementDay</name>
+      </field>
+      <field>
+        <name>streamDate</name>
+      </field>
+      <field>
+        <name>streamYear</name>
+      </field>
+      <field>
+        <name>streamMonth</name>
+      </field>
+      <field>
+        <name>streamDay</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>CurrentDate</name>
+      </remove>
+      <remove>
+        <name>incrementDay</name>
+      </remove>
     </fields>
-    <custom>
-      <header_font_name>arial</header_font_name>
-      <header_font_size>10</header_font_size>
-      <header_font_bold>N</header_font_bold>
-      <header_font_italic>N</header_font_italic>
-      <header_font_underline>no</header_font_underline>
-      <header_font_orientation>horizontal</header_font_orientation>
-      <header_font_color>black</header_font_color>
-      <header_background_color>none</header_background_color>
-      <header_row_height>255</header_row_height>
-      <header_alignment>left</header_alignment>
-      <header_image/>
-      <row_font_name>arial</row_font_name>
-      <row_font_size>10</row_font_size>
-      <row_font_color>black</row_font_color>
-      <row_background_color>none</row_background_color>
-    </custom>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -750,14 +887,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>208</yloc>
+      <xloc>400</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Text file output</name>
-    <type>TextFileOutput</type>
+    <name>Table output</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -766,37 +903,40 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding/>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>file</name>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery/>
-    </file>
+    <connection>conn_dw_destination</connection>
+    <schema>dw_legendvehicle</schema>
+    <table>dimdate</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
     <fields>
+      <field>
+        <column_name>date</column_name>
+        <stream_name>streamDate</stream_name>
+      </field>
+      <field>
+        <column_name>year</column_name>
+        <stream_name>streamYear</stream_name>
+      </field>
+      <field>
+        <column_name>month</column_name>
+        <stream_name>streamMonth</stream_name>
+      </field>
+      <field>
+        <column_name>day</column_name>
+        <stream_name>streamDay</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -807,8 +947,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>96</yloc>
+      <xloc>704</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
