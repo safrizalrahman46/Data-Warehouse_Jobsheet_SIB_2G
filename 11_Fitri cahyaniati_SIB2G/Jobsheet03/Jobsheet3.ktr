@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Jobsheet 3A</name>
+    <name>Jobsheet3</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,77 +427,14 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/21 09:37:28.886</created_date>
+    <created_date>2025/03/22 11:40:02.841</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/21 09:37:28.886</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2025/03/22 11:40:02.841</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>conn_dw_destination</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>dw_legendvehicle</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted </password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
-        <attribute>500</attribute>
-      </attribute>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
-        <attribute>true</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>3306</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>STREAM_RESULTS</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
   <order>
     <hop>
       <from>Generate rows</from>
@@ -519,17 +456,51 @@
       <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
-    <hop>
-      <from>Database lookup</from>
-      <to>Filter rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows</from>
-      <to>Table output</to>
-      <enabled>Y</enabled>
-    </hop>
   </order>
+  <step>
+    <name>Generate rows</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>CurrentDate</name>
+        <type>Date</type>
+        <format>dd-MM-yyy</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>01-01-2003</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <limit>1825</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>64</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>Add sequence</name>
     <type>Sequence</type>
@@ -560,8 +531,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>288</yloc>
+      <xloc>208</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -580,7 +551,7 @@
     <calculation>
       <field_name>streamDate</field_name>
       <calc_type>ADD_DAYS</calc_type>
-      <field_a>CurrentDate</field_a>
+      <field_a>CurrentDate	</field_a>
       <field_b>incrementDay</field_b>
       <field_c/>
       <value_type>None</value_type>
@@ -595,7 +566,7 @@
     <calculation>
       <field_name>streamYear</field_name>
       <calc_type>YEAR_OF_DATE</calc_type>
-      <field_a>streamDate</field_a>
+      <field_a>streamDate	</field_a>
       <field_b/>
       <field_c/>
       <value_type>None</value_type>
@@ -610,7 +581,7 @@
     <calculation>
       <field_name>streamMonth</field_name>
       <calc_type>MONTH_OF_DATE</calc_type>
-      <field_a>streamDate</field_a>
+      <field_a>streamDate	</field_a>
       <field_b/>
       <field_c/>
       <value_type>None</value_type>
@@ -624,8 +595,8 @@
     </calculation>
     <calculation>
       <field_name>streamDay</field_name>
-      <calc_type>DAY_OF_MONTH</calc_type>
-      <field_a>streamDate</field_a>
+      <calc_type>DAY_OF_YEAR</calc_type>
+      <field_a>streamDate	</field_a>
       <field_b/>
       <field_c/>
       <value_type>None</value_type>
@@ -646,197 +617,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>304</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>conn_dw_destination</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw_legendvehicle</schema>
-      <table>dimdate</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>streamDate</name>
-        <field>date</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamYear</name>
-        <field>year</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamMonth</name>
-        <field>month</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamDay</name>
-        <field>day</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>date</name>
-        <rename>date</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>year</name>
-        <rename>year</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>month</name>
-        <rename>month</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>day</name>
-        <rename>day</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Table output</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>date</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>year</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>month</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>day</leftvalue>
-            <function>IS NULL</function>
-            <rightvalue/>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Generate rows</name>
-    <type>RowGenerator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>CurrentDate</name>
-        <type>Date</type>
-        <format>dd-MM-yyyy</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>01-01-2003</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <limit>1825</limit>
-    <never_ending>N</never_ending>
-    <interval_in_ms>5000</interval_in_ms>
-    <row_time_field>now</row_time_field>
-    <last_time_field>FiveSecondsAgo</last_time_field>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>96</xloc>
-      <yloc>128</yloc>
+      <xloc>336</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -854,25 +636,31 @@
     <fields>
       <field>
         <name>CurrentDate</name>
+        <rename/>
       </field>
       <field>
         <name>incrementDay</name>
+        <rename/>
       </field>
       <field>
         <name>streamDate</name>
+        <rename/>
       </field>
       <field>
         <name>streamYear</name>
+        <rename/>
       </field>
       <field>
         <name>streamMonth</name>
+        <rename/>
       </field>
       <field>
         <name>streamDay</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
-        <name>CurrentDate</name>
+        <name>CurrentData</name>
       </remove>
       <remove>
         <name>incrementDay</name>
@@ -887,8 +675,79 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>288</yloc>
+      <xloc>112</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection/>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup table</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue/>
+        <function>=</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -903,14 +762,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_dw_destination</connection>
-    <schema>dw_legendvehicle</schema>
-    <table>dimdate</table>
+    <connection/>
+    <schema/>
+    <table/>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
+    <specify_fields>N</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -921,22 +780,6 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-      <field>
-        <column_name>date</column_name>
-        <stream_name>streamDate</stream_name>
-      </field>
-      <field>
-        <column_name>year</column_name>
-        <stream_name>streamYear</stream_name>
-      </field>
-      <field>
-        <column_name>month</column_name>
-        <stream_name>streamMonth</stream_name>
-      </field>
-      <field>
-        <column_name>day</column_name>
-        <stream_name>streamDay</stream_name>
-      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -947,8 +790,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>128</yloc>
+      <xloc>176</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

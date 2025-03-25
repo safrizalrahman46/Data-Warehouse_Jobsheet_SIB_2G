@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Jobsheet 3A</name>
+    <name>JOBSHETT 3_4</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -427,9 +428,9 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/21 09:37:28.886</created_date>
+    <created_date>2025/03/21 06:52:17.964</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/21 09:37:28.886</modified_date>
+    <modified_date>2025/03/21 06:52:17.964</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -440,7 +441,7 @@
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>dw_legendvehicle</database>
+    <database>dw_LegendVehicle</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted </password>
@@ -520,13 +521,13 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
-      <to>Filter rows</to>
+      <from>Filter rows</from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows</from>
-      <to>Table output</to>
+      <from>Database lookup</from>
+      <to>Filter rows</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -543,7 +544,7 @@
     </partitioning>
     <valuename>incrementDay</valuename>
     <use_database>N</use_database>
-    <connection/>
+    <connection>conn_dw_destination</connection>
     <schema/>
     <seqname>SEQ_</seqname>
     <use_counter>Y</use_counter>
@@ -560,8 +561,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>288</yloc>
+      <xloc>544</xloc>
+      <yloc>432</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -646,8 +647,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>304</xloc>
-      <yloc>128</yloc>
+      <xloc>704</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -730,8 +731,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>128</yloc>
+      <xloc>960</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -754,6 +755,7 @@
         <conditions>
           <condition>
             <negated>N</negated>
+            <operator>AND</operator>
             <leftvalue>date</leftvalue>
             <function>IS NULL</function>
             <rightvalue/>
@@ -791,8 +793,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>288</yloc>
+      <xloc>1168</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -835,8 +837,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>96</xloc>
-      <yloc>128</yloc>
+      <xloc>352</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -854,21 +856,27 @@
     <fields>
       <field>
         <name>CurrentDate</name>
+        <rename/>
       </field>
       <field>
         <name>incrementDay</name>
+        <rename/>
       </field>
       <field>
         <name>streamDate</name>
+        <rename/>
       </field>
       <field>
         <name>streamYear</name>
+        <rename/>
       </field>
       <field>
         <name>streamMonth</name>
+        <rename/>
       </field>
       <field>
         <name>streamDay</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
@@ -887,8 +895,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>288</yloc>
+      <xloc>816</xloc>
+      <yloc>432</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -947,8 +955,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>128</yloc>
+      <xloc>1328</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
