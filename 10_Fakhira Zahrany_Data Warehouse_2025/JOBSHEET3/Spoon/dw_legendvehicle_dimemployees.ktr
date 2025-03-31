@@ -436,11 +436,74 @@
   <notepads>
   </notepads>
   <connection>
+    <name>conn_dw_perusahaan</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>Perusahaan</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>conn_oltp_resources</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>dw_legendvehicle</database>
+    <database>dw_LegendVehicle</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted </password>
@@ -499,6 +562,26 @@
     </attributes>
   </connection>
   <order>
+    <hop>
+      <from>Table input</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
+      <to>Table output</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Database lookup</name>
@@ -511,16 +594,88 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection/>
+    <connection>conn_oltp_resources</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
-      <schema/>
-      <table>lookup table</table>
+      <schema>dw_LegendVehicle</schema>
+      <table>dimEmployees</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>StreamEmployeenumber</name>
+        <field>Employeenumber</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>StreamFirstname</name>
+        <field>Firstname</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>StreamLastname</name>
+        <field>Lastname</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>StreamJobtitle</name>
+        <field>Jobtitle</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>StreamFirstnameBoss</name>
+        <field>Boss_firstname</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>StreamLastnameBoss</name>
+        <field>Boss_lastname</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>Employeenumber</name>
+        <rename>Employeenumber</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+      <value>
+        <name>Firstname</name>
+        <rename>Firstname</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>Lastname</name>
+        <rename>Lastname</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>Jobtitle</name>
+        <rename>Jobtitle</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>Boss_firstname</name>
+        <rename>Boss_firstname</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>Boss_lastname</name>
+        <rename>Boss_lastname</rename>
+        <default/>
+        <type>String</type>
+      </value>
     </lookup>
     <attributes/>
     <cluster_schema/>
@@ -537,41 +692,6 @@
     </GUI>
   </step>
   <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue/>
-        <function>=</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>384</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Select values</name>
     <type>SelectValues</type>
     <description/>
@@ -583,7 +703,101 @@
       <schema_name/>
     </partitioning>
     <fields>
+      <field>
+        <name>employeeNumber</name>
+        <rename>StreamEmployeenumber</rename>
+      </field>
+      <field>
+        <name>lastName</name>
+        <rename>StreamLastname</rename>
+      </field>
+      <field>
+        <name>firstName</name>
+        <rename>StreamFirstname</rename>
+      </field>
+      <field>
+        <name>extension</name>
+        <rename/>
+      </field>
+      <field>
+        <name>email</name>
+        <rename/>
+      </field>
+      <field>
+        <name>officeCode</name>
+        <rename/>
+      </field>
+      <field>
+        <name>reportsTo</name>
+        <rename/>
+      </field>
+      <field>
+        <name>jobTitle</name>
+        <rename>StreamJobtitle</rename>
+      </field>
+      <field>
+        <name>employeeNumber_1</name>
+        <rename/>
+      </field>
+      <field>
+        <name>lastName_1</name>
+        <rename>StreamLastnameBoss</rename>
+      </field>
+      <field>
+        <name>firstName_1</name>
+        <rename>StreamFirstnameBoss</rename>
+      </field>
+      <field>
+        <name>extension_1</name>
+        <rename/>
+      </field>
+      <field>
+        <name>email_1</name>
+        <rename/>
+      </field>
+      <field>
+        <name>officeCode_1</name>
+        <rename/>
+      </field>
+      <field>
+        <name>reportsTo_1</name>
+        <rename/>
+      </field>
+      <field>
+        <name>jobTitle_1</name>
+        <rename/>
+      </field>
       <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>extension</name>
+      </remove>
+      <remove>
+        <name>email</name>
+      </remove>
+      <remove>
+        <name>officeCode</name>
+      </remove>
+      <remove>
+        <name>reportsTo</name>
+      </remove>
+      <remove>
+        <name>employeeNumber_1</name>
+      </remove>
+      <remove>
+        <name>extension_1</name>
+      </remove>
+      <remove>
+        <name>email_1</name>
+      </remove>
+      <remove>
+        <name>officeCode_1</name>
+      </remove>
+      <remove>
+        <name>reportsTo_1</name>
+      </remove>
+      <remove>
+        <name>jobTitle_1</name>
+      </remove>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -610,13 +824,11 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_oltp_resources</connection>
-    <sql>SELECT e.*, r.*
-FROM dimemployees e  
-LEFT JOIN dimemployees r  
-ON e.boss_firstname = r.firstName 
-AND e.boss_lastname = r.lastName;
-</sql>
+    <connection>conn_dw_perusahaan</connection>
+    <sql>SELECT * 
+FROM employees e 
+LEFT JOIN employees r 
+ON e.reportsTo = r.employeeNumber;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -627,58 +839,12 @@ AND e.boss_lastname = r.lastName;
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>id_dimemployees</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Table input</origin>
-        <comments>id_dimemployees</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>Asia/Jakarta</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
         <name>employeeNumber</name>
         <length>9</length>
         <precision>0</precision>
         <origin>Table input</origin>
         <comments>employeeNumber</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>Asia/Jakarta</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>firstName</name>
-        <length>50</length>
-        <precision>-1</precision>
-        <origin>Table input</origin>
-        <comments>firstName</comments>
-        <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
@@ -719,11 +885,11 @@ AND e.boss_lastname = r.lastName;
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>jobTitle</name>
+        <name>firstName</name>
         <length>50</length>
         <precision>-1</precision>
         <origin>Table input</origin>
-        <comments>jobTitle</comments>
+        <comments>firstName</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -742,11 +908,11 @@ AND e.boss_lastname = r.lastName;
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>boss_firstname</name>
-        <length>50</length>
+        <name>extension</name>
+        <length>10</length>
         <precision>-1</precision>
         <origin>Table input</origin>
-        <comments>boss_firstname</comments>
+        <comments>extension</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -765,11 +931,11 @@ AND e.boss_lastname = r.lastName;
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>boss_lastname</name>
-        <length>50</length>
+        <name>email</name>
+        <length>100</length>
         <precision>-1</precision>
         <origin>Table input</origin>
-        <comments>boss_lastname</comments>
+        <comments>email</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -786,13 +952,13 @@ AND e.boss_lastname = r.lastName;
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
-        <type>Date</type>
+        <type>String</type>
         <storagetype>normal</storagetype>
-        <name>updated</name>
-        <length>-1</length>
+        <name>officeCode</name>
+        <length>10</length>
         <precision>-1</precision>
         <origin>Table input</origin>
-        <comments>updated</comments>
+        <comments>officeCode</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -811,12 +977,35 @@ AND e.boss_lastname = r.lastName;
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>id_dimemployees_1</name>
+        <name>reportsTo</name>
         <length>9</length>
         <precision>0</precision>
         <origin>Table input</origin>
-        <comments>id_dimemployees</comments>
+        <comments>reportsTo</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Jakarta</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>jobTitle</name>
+        <length>50</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>jobTitle</comments>
+        <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
@@ -857,29 +1046,6 @@ AND e.boss_lastname = r.lastName;
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>firstName_1</name>
-        <length>50</length>
-        <precision>-1</precision>
-        <origin>Table input</origin>
-        <comments>firstName</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>Asia/Jakarta</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
         <name>lastName_1</name>
         <length>50</length>
         <precision>-1</precision>
@@ -903,80 +1069,126 @@ AND e.boss_lastname = r.lastName;
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
+        <name>firstName_1</name>
+        <length>50</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>firstName</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Jakarta</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>extension_1</name>
+        <length>10</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>extension</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Jakarta</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>email_1</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>email</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Jakarta</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>officeCode_1</name>
+        <length>10</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>officeCode</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Jakarta</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>reportsTo_1</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>reportsTo</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Asia/Jakarta</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
         <name>jobTitle_1</name>
         <length>50</length>
         <precision>-1</precision>
         <origin>Table input</origin>
         <comments>jobTitle</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>Asia/Jakarta</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>boss_firstname_1</name>
-        <length>50</length>
-        <precision>-1</precision>
-        <origin>Table input</origin>
-        <comments>boss_firstname</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>Asia/Jakarta</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>boss_lastname_1</name>
-        <length>50</length>
-        <precision>-1</precision>
-        <origin>Table input</origin>
-        <comments>boss_lastname</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>Asia/Jakarta</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
-        <name>updated_1</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>Table input</origin>
-        <comments>updated</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -1018,14 +1230,14 @@ AND e.boss_lastname = r.lastName;
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection/>
-    <schema/>
-    <table/>
+    <connection>conn_oltp_resources</connection>
+    <schema>dw_LegendVehicle</schema>
+    <table>dimEmployees</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -1036,6 +1248,30 @@ AND e.boss_lastname = r.lastName;
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>Employeenumber</column_name>
+        <stream_name>StreamEmployeenumber</stream_name>
+      </field>
+      <field>
+        <column_name>Firstname</column_name>
+        <stream_name>StreamFirstname</stream_name>
+      </field>
+      <field>
+        <column_name>Lastname</column_name>
+        <stream_name>StreamLastname</stream_name>
+      </field>
+      <field>
+        <column_name>Jobtitle</column_name>
+        <stream_name>StreamJobtitle</stream_name>
+      </field>
+      <field>
+        <column_name>Boss_firstname</column_name>
+        <stream_name>StreamFirstnameBoss</stream_name>
+      </field>
+      <field>
+        <column_name>Boss_lastname</column_name>
+        <stream_name>StreamLastnameBoss</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1047,6 +1283,101 @@ AND e.boss_lastname = r.lastName;
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Table output</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>Employeenumber</leftvalue>
+            <function>IS NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>Firstname</leftvalue>
+                <function>IS NULL</function>
+                <rightvalue/>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <conditions>
+                  <condition>
+                    <negated>N</negated>
+                    <leftvalue>Lastname</leftvalue>
+                    <function>IS NULL</function>
+                    <rightvalue/>
+                  </condition>
+                  <condition>
+                    <negated>N</negated>
+                    <operator>AND</operator>
+                    <conditions>
+                      <condition>
+                        <negated>N</negated>
+                        <leftvalue>Jobtitle</leftvalue>
+                        <function>IS NULL</function>
+                        <rightvalue/>
+                      </condition>
+                      <condition>
+                        <negated>N</negated>
+                        <operator>AND</operator>
+                        <conditions>
+                          <condition>
+                            <negated>N</negated>
+                            <leftvalue>Boss_firstname</leftvalue>
+                            <function>IS NULL</function>
+                            <rightvalue/>
+                          </condition>
+                          <condition>
+                            <negated>N</negated>
+                            <operator>AND</operator>
+                            <leftvalue>Boss_lastname</leftvalue>
+                            <function>IS NULL</function>
+                            <rightvalue/>
+                          </condition>
+                        </conditions>
+                      </condition>
+                    </conditions>
+                  </condition>
+                </conditions>
+              </condition>
+            </conditions>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>384</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
