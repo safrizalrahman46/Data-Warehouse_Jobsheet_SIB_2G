@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Jobsheet3</name>
+    <name>Dimension_Time</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -427,21 +428,21 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/22 11:40:02.841</created_date>
+    <created_date>2025/03/24 15:46:32.968</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/22 11:40:02.841</modified_date>
+    <modified_date>2025/03/24 15:46:32.968</modified_date>
     <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>conn_dw_destination</name>
+    <name>conn_dw_time</name>
     <server>localhost</server>
-    <type>SNOWFLAKEHV</type>
+    <type>MYSQL</type>
     <access>Native</access>
-    <database>dw_LegendVehicle</database>
-    <port>443</port>
+    <database>ExpedisiHouse</database>
+    <port>3306</port>
     <username>root</username>
     <password>Encrypted </password>
     <servername/>
@@ -449,8 +450,12 @@
     <index_tablespace/>
     <attributes>
       <attribute>
-        <code>EXTRA_OPTION_SNOWFLAKEHV.ssl</code>
-        <attribute>on</attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
       </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
@@ -466,7 +471,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>443</attribute>
+        <attribute>3306</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -475,6 +480,10 @@
       <attribute>
         <code>QUOTE_ALL_FIELDS</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
@@ -503,12 +512,7 @@
     </hop>
     <hop>
       <from>Calculator</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values</from>
-      <to>Database lookup</to>
+      <to>Value mapper</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -519,6 +523,21 @@
     <hop>
       <from>Filter rows</from>
       <to>Table output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Value mapper</from>
+      <to>seq_id_tanggal</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>seq_id_tanggal</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -535,7 +554,7 @@
     </partitioning>
     <valuename>incrementDay</valuename>
     <use_database>N</use_database>
-    <connection>conn_dw_destination</connection>
+    <connection>conn_dw_time</connection>
     <schema/>
     <seqname>SEQ_</seqname>
     <use_counter>Y</use_counter>
@@ -552,8 +571,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>208</xloc>
-      <yloc>64</yloc>
+      <xloc>128</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -572,10 +591,10 @@
     <calculation>
       <field_name>streamDate</field_name>
       <calc_type>ADD_DAYS</calc_type>
-      <field_a>CurrentDate	</field_a>
+      <field_a>CurrentDate</field_a>
       <field_b>incrementDay</field_b>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Date</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -587,10 +606,10 @@
     <calculation>
       <field_name>streamYear</field_name>
       <calc_type>YEAR_OF_DATE</calc_type>
-      <field_a>streamDate	</field_a>
+      <field_a>streamDate</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -602,10 +621,10 @@
     <calculation>
       <field_name>streamMonth</field_name>
       <calc_type>MONTH_OF_DATE</calc_type>
-      <field_a>streamDate	</field_a>
+      <field_a>streamDate</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -616,11 +635,11 @@
     </calculation>
     <calculation>
       <field_name>streamDay</field_name>
-      <calc_type>DAY_OF_YEAR</calc_type>
-      <field_a>streamDate	</field_a>
+      <calc_type>DAY_OF_MONTH</calc_type>
+      <field_a>streamDate</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -638,8 +657,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>64</yloc>
+      <xloc>192</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -654,61 +673,61 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_dw_destination</connection>
+    <connection>conn_dw_time</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
-      <schema>dw_LegendVehicle</schema>
-      <table>dimDate</table>
+      <schema>ExpedisiHouse</schema>
+      <table>dim_time</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
         <name>streamDate</name>
-        <field>date</field>
+        <field>tanggal</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
         <name>streamYear</name>
-        <field>year</field>
+        <field>tahun</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
         <name>streamMonth</name>
-        <field>month</field>
+        <field>bulan</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
         <name>streamDay</name>
-        <field>day</field>
+        <field>hari</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>date</name>
-        <rename>date</rename>
+        <name>tanggal</name>
+        <rename>tanggal</rename>
         <default/>
         <type>None</type>
       </value>
       <value>
-        <name>year</name>
-        <rename>year</rename>
+        <name>tahun</name>
+        <rename>tahun</rename>
         <default/>
         <type>None</type>
       </value>
       <value>
-        <name>month</name>
-        <rename>month</rename>
+        <name>bulan</name>
+        <rename>bulan</rename>
         <default/>
         <type>None</type>
       </value>
       <value>
-        <name>day</name>
-        <rename>day</rename>
+        <name>hari</name>
+        <rename>hari</rename>
         <default/>
         <type>None</type>
       </value>
@@ -722,8 +741,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>160</yloc>
+      <xloc>496</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -743,9 +762,45 @@
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue/>
-        <function>=</function>
-        <rightvalue/>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>tanggal</leftvalue>
+            <function>IS NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>tahun</leftvalue>
+                <function>IS NULL</function>
+                <rightvalue/>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <conditions>
+                  <condition>
+                    <negated>N</negated>
+                    <leftvalue>bulan</leftvalue>
+                    <function>IS NULL</function>
+                    <rightvalue/>
+                  </condition>
+                  <condition>
+                    <negated>N</negated>
+                    <operator>AND</operator>
+                    <leftvalue>hari</leftvalue>
+                    <function>IS NULL</function>
+                    <rightvalue/>
+                  </condition>
+                </conditions>
+              </condition>
+            </conditions>
+          </condition>
+        </conditions>
       </condition>
     </compare>
     <attributes/>
@@ -757,8 +812,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
-      <yloc>176</yloc>
+      <xloc>608</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -777,17 +832,17 @@
       <field>
         <name>CurrentDate</name>
         <type>Date</type>
-        <format>dd-MM-yyy</format>
+        <format>dd-MM-yyyy</format>
         <currency/>
         <decimal/>
         <group/>
-        <nullif>01-01-2003</nullif>
+        <nullif>24-03-2023</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <limit>1825</limit>
+    <limit>731</limit>
     <never_ending>N</never_ending>
     <interval_in_ms>5000</interval_in_ms>
     <row_time_field>now</row_time_field>
@@ -801,8 +856,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
-      <yloc>64</yloc>
+      <xloc>48</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -820,25 +875,39 @@
     <fields>
       <field>
         <name>CurrentDate</name>
+        <rename/>
       </field>
       <field>
         <name>incrementDay</name>
+        <rename/>
       </field>
       <field>
         <name>streamDate</name>
+        <rename/>
       </field>
       <field>
         <name>streamYear</name>
+        <rename/>
       </field>
       <field>
         <name>streamMonth</name>
+        <rename/>
       </field>
       <field>
         <name>streamDay</name>
+        <rename/>
+      </field>
+      <field>
+        <name>nama_bulan</name>
+        <rename/>
+      </field>
+      <field>
+        <name>id_tanggal</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
-        <name>CurrentData</name>
+        <name>CurrentDate</name>
       </remove>
       <remove>
         <name>incrementDay</name>
@@ -853,8 +922,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>112</xloc>
-      <yloc>160</yloc>
+      <xloc>416</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -869,14 +938,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection/>
-    <schema/>
-    <table/>
+    <connection>conn_dw_time</connection>
+    <schema>ExpedisiHouse</schema>
+    <table>dim_time</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -887,6 +956,30 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>tanggal</column_name>
+        <stream_name>streamDate</stream_name>
+      </field>
+      <field>
+        <column_name>tahun</column_name>
+        <stream_name>streamYear</stream_name>
+      </field>
+      <field>
+        <column_name>bulan</column_name>
+        <stream_name>streamMonth</stream_name>
+      </field>
+      <field>
+        <column_name>hari</column_name>
+        <stream_name>streamDay</stream_name>
+      </field>
+      <field>
+        <column_name>nama_bulan</column_name>
+        <stream_name>nama_bulan</stream_name>
+      </field>
+      <field>
+        <column_name>id_tanggal</column_name>
+        <stream_name>id_tanggal</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -897,8 +990,121 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
-      <yloc>256</yloc>
+      <xloc>720</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Value mapper</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>streamMonth</field_to_use>
+    <target_field>nama_bulan</target_field>
+    <non_match_default/>
+    <fields>
+      <field>
+        <source_value>1</source_value>
+        <target_value>Januari</target_value>
+      </field>
+      <field>
+        <source_value>2</source_value>
+        <target_value>Februari</target_value>
+      </field>
+      <field>
+        <source_value>3</source_value>
+        <target_value>Maret</target_value>
+      </field>
+      <field>
+        <source_value>4</source_value>
+        <target_value>April</target_value>
+      </field>
+      <field>
+        <source_value>5</source_value>
+        <target_value>Mei</target_value>
+      </field>
+      <field>
+        <source_value>6</source_value>
+        <target_value>Juni</target_value>
+      </field>
+      <field>
+        <source_value>7</source_value>
+        <target_value>Juli</target_value>
+      </field>
+      <field>
+        <source_value>8</source_value>
+        <target_value>Agustus</target_value>
+      </field>
+      <field>
+        <source_value>9</source_value>
+        <target_value>September</target_value>
+      </field>
+      <field>
+        <source_value>10</source_value>
+        <target_value>Oktober</target_value>
+      </field>
+      <field>
+        <source_value>11</source_value>
+        <target_value>November</target_value>
+      </field>
+      <field>
+        <source_value>12</source_value>
+        <target_value>Desember</target_value>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>seq_id_tanggal</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>id_tanggal</valuename>
+    <use_database>N</use_database>
+    <connection>conn_dw_time</connection>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

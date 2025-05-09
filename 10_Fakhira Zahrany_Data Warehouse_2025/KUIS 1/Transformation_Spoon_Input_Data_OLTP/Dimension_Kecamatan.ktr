@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Jobsheet3</name>
+    <name>Dimension_Kecamatan</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -427,21 +428,21 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/22 11:40:02.841</created_date>
+    <created_date>2025/03/25 02:13:26.049</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/22 11:40:02.841</modified_date>
+    <modified_date>2025/03/25 02:13:26.049</modified_date>
     <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>conn_dw_destination</name>
+    <name>conn_dm_kecamatan</name>
     <server>localhost</server>
-    <type>SNOWFLAKEHV</type>
+    <type>MYSQL</type>
     <access>Native</access>
-    <database>dw_LegendVehicle</database>
-    <port>443</port>
+    <database>ExpedisiHouse</database>
+    <port>3306</port>
     <username>root</username>
     <password>Encrypted </password>
     <servername/>
@@ -449,8 +450,12 @@
     <index_tablespace/>
     <attributes>
       <attribute>
-        <code>EXTRA_OPTION_SNOWFLAKEHV.ssl</code>
-        <attribute>on</attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
       </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
@@ -466,7 +471,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>443</attribute>
+        <attribute>3306</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -475,6 +480,10 @@
       <attribute>
         <code>QUOTE_ALL_FIELDS</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
@@ -492,279 +501,14 @@
   </connection>
   <order>
     <hop>
-      <from>Generate rows</from>
-      <to>Add sequence</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Add sequence</from>
-      <to>Calculator</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Calculator</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values</from>
-      <to>Database lookup</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Database lookup</from>
-      <to>Filter rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows</from>
+      <from>Data grid</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Add sequence</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <valuename>incrementDay</valuename>
-    <use_database>N</use_database>
-    <connection>conn_dw_destination</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>0</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>64</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Calculator</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <failIfNoFile>Y</failIfNoFile>
-    <calculation>
-      <field_name>streamDate</field_name>
-      <calc_type>ADD_DAYS</calc_type>
-      <field_a>CurrentDate	</field_a>
-      <field_b>incrementDay</field_b>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamYear</field_name>
-      <calc_type>YEAR_OF_DATE</calc_type>
-      <field_a>streamDate	</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamMonth</field_name>
-      <calc_type>MONTH_OF_DATE</calc_type>
-      <field_a>streamDate	</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <calculation>
-      <field_name>streamDay</field_name>
-      <calc_type>DAY_OF_YEAR</calc_type>
-      <field_a>streamDate	</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>64</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>conn_dw_destination</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw_LegendVehicle</schema>
-      <table>dimDate</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>streamDate</name>
-        <field>date</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamYear</name>
-        <field>year</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamMonth</name>
-        <field>month</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>streamDay</name>
-        <field>day</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>date</name>
-        <rename>date</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>year</name>
-        <rename>year</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>month</name>
-        <rename>month</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>day</name>
-        <rename>day</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>240</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Table output</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue/>
-        <function>=</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>368</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Generate rows</name>
-    <type>RowGenerator</type>
+    <name>Data grid</name>
+    <type>DataGrid</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -775,23 +519,419 @@
     </partitioning>
     <fields>
       <field>
-        <name>CurrentDate</name>
-        <type>Date</type>
-        <format>dd-MM-yyy</format>
+        <name>Id_Kecamatan</name>
+        <type>INT</type>
+        <format/>
         <currency/>
         <decimal/>
         <group/>
-        <nullif>01-01-2003</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+      <field>
+        <name>Id_Kota</name>
+        <type>INT</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+      <field>
+        <name>Nama_Kecamatan</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
       </field>
     </fields>
-    <limit>1825</limit>
-    <never_ending>N</never_ending>
-    <interval_in_ms>5000</interval_in_ms>
-    <row_time_field>now</row_time_field>
-    <last_time_field>FiveSecondsAgo</last_time_field>
+    <data>
+      <line>
+        <item>1</item>
+        <item>1</item>
+        <item>Banda Raya</item>
+      </line>
+      <line>
+        <item>2</item>
+        <item>2</item>
+        <item>Syiah Kuala</item>
+      </line>
+      <line>
+        <item>3</item>
+        <item>3</item>
+        <item>Medan Kota</item>
+      </line>
+      <line>
+        <item>4</item>
+        <item>4</item>
+        <item>Siantar Selatan</item>
+      </line>
+      <line>
+        <item>5</item>
+        <item>5</item>
+        <item>Padang Utara</item>
+      </line>
+      <line>
+        <item>6</item>
+        <item>6</item>
+        <item>Bukit Tinggi Kota</item>
+      </line>
+      <line>
+        <item>7</item>
+        <item>7</item>
+        <item>Pekanbaru Kota</item>
+      </line>
+      <line>
+        <item>8</item>
+        <item>8</item>
+        <item>Dumai Kota</item>
+      </line>
+      <line>
+        <item>9</item>
+        <item>9</item>
+        <item>Jambi Selatan</item>
+      </line>
+      <line>
+        <item>10</item>
+        <item>10</item>
+        <item>Sungai penuh</item>
+      </line>
+      <line>
+        <item>11</item>
+        <item>11</item>
+        <item>Ilir Barat I</item>
+      </line>
+      <line>
+        <item>12</item>
+        <item>12</item>
+        <item>Lubuklingau Selatan I</item>
+      </line>
+      <line>
+        <item>13</item>
+        <item>13</item>
+        <item>Ratu Samban</item>
+      </line>
+      <line>
+        <item>14</item>
+        <item>14</item>
+        <item>Curup Tengah</item>
+      </line>
+      <line>
+        <item>15</item>
+        <item>15</item>
+        <item>Tanjung Karang Pusat</item>
+      </line>
+      <line>
+        <item>16</item>
+        <item>16</item>
+        <item>Metro Pusat</item>
+      </line>
+      <line>
+        <item>17</item>
+        <item>17</item>
+        <item>Bukit Intan</item>
+      </line>
+      <line>
+        <item>18</item>
+        <item>18</item>
+        <item>Tanjung Pandan</item>
+      </line>
+      <line>
+        <item>19</item>
+        <item>19</item>
+        <item>Tanjung Pinang Barat</item>
+      </line>
+      <line>
+        <item>20</item>
+        <item>20</item>
+        <item>Batam Kota</item>
+      </line>
+      <line>
+        <item>21</item>
+        <item>21</item>
+        <item>Gambir</item>
+      </line>
+      <line>
+        <item>22</item>
+        <item>22</item>
+        <item>Kebayoran Baru</item>
+      </line>
+      <line>
+        <item>23</item>
+        <item>23</item>
+        <item>Bandung Wetan</item>
+      </line>
+      <line>
+        <item>24</item>
+        <item>24</item>
+        <item>Cimahi Tengah</item>
+      </line>
+      <line>
+        <item>25</item>
+        <item>25</item>
+        <item>Semarang Tengah</item>
+      </line>
+      <line>
+        <item>26</item>
+        <item>26</item>
+        <item>Surakata</item>
+      </line>
+      <line>
+        <item>27</item>
+        <item>27</item>
+        <item>Gondokusumo</item>
+      </line>
+      <line>
+        <item>28</item>
+        <item>28</item>
+        <item>Sleman</item>
+      </line>
+      <line>
+        <item>29</item>
+        <item>29</item>
+        <item>Blimbing</item>
+      </line>
+      <line>
+        <item>30</item>
+        <item>30</item>
+        <item>Sukolio</item>
+      </line>
+      <line>
+        <item>31</item>
+        <item>31</item>
+        <item>Tangerang Kota</item>
+      </line>
+      <line>
+        <item>32</item>
+        <item>32</item>
+        <item>Serang Kota</item>
+      </line>
+      <line>
+        <item>33</item>
+        <item>33</item>
+        <item>Denpasar Selatan</item>
+      </line>
+      <line>
+        <item>34</item>
+        <item>34</item>
+        <item>Gianyar</item>
+      </line>
+      <line>
+        <item>35</item>
+        <item>35</item>
+        <item>Mataram</item>
+      </line>
+      <line>
+        <item>36</item>
+        <item>36</item>
+        <item>Bima Kota</item>
+      </line>
+      <line>
+        <item>37</item>
+        <item>37</item>
+        <item>Kupang Tengah</item>
+      </line>
+      <line>
+        <item>38</item>
+        <item>38</item>
+        <item>Ende Utara</item>
+      </line>
+      <line>
+        <item>39</item>
+        <item>39</item>
+        <item>Pontianak Kota</item>
+      </line>
+      <line>
+        <item>40</item>
+        <item>40</item>
+        <item>Singkawang Tengah</item>
+      </line>
+      <line>
+        <item>41</item>
+        <item>41</item>
+        <item>Palangkaraya Tengah</item>
+      </line>
+      <line>
+        <item>42</item>
+        <item>42</item>
+        <item>Sampit</item>
+      </line>
+      <line>
+        <item>43</item>
+        <item>43</item>
+        <item>Banjarmasin Tengah</item>
+      </line>
+      <line>
+        <item>44</item>
+        <item>44</item>
+        <item>Banjar Baru Utara</item>
+      </line>
+      <line>
+        <item>45</item>
+        <item>45</item>
+        <item>Samarinda kota</item>
+      </line>
+      <line>
+        <item>46</item>
+        <item>46</item>
+        <item>Balikpapan Kota</item>
+      </line>
+      <line>
+        <item>47</item>
+        <item>47</item>
+        <item>Tanjung Selor</item>
+      </line>
+      <line>
+        <item>48</item>
+        <item>48</item>
+        <item>Tarakan Tengah</item>
+      </line>
+      <line>
+        <item>49</item>
+        <item>49</item>
+        <item>Wenang</item>
+      </line>
+      <line>
+        <item>50</item>
+        <item>50</item>
+        <item>Bitung Tengah</item>
+      </line>
+      <line>
+        <item>51</item>
+        <item>51</item>
+        <item>Kota Tengah</item>
+      </line>
+      <line>
+        <item>52</item>
+        <item>52</item>
+        <item>Marisa</item>
+      </line>
+      <line>
+        <item>53</item>
+        <item>53</item>
+        <item>Palu Selatan</item>
+      </line>
+      <line>
+        <item>54</item>
+        <item>54</item>
+        <item>Poso Kota</item>
+      </line>
+      <line>
+        <item>55</item>
+        <item>55</item>
+        <item>Makasar</item>
+      </line>
+      <line>
+        <item>56</item>
+        <item>56</item>
+        <item>Parepre</item>
+      </line>
+      <line>
+        <item>57</item>
+        <item>57</item>
+        <item>Kendari Barat</item>
+      </line>
+      <line>
+        <item>58</item>
+        <item>58</item>
+        <item>Bau -Bau</item>
+      </line>
+      <line>
+        <item>59</item>
+        <item>59</item>
+        <item>Mamuju</item>
+      </line>
+      <line>
+        <item>60</item>
+        <item>60</item>
+        <item>Polewali</item>
+      </line>
+      <line>
+        <item>61</item>
+        <item>61</item>
+        <item>Sirimau</item>
+      </line>
+      <line>
+        <item>62</item>
+        <item>62</item>
+        <item>Tual</item>
+      </line>
+      <line>
+        <item>63</item>
+        <item>63</item>
+        <item>Ternate Tengah</item>
+      </line>
+      <line>
+        <item>64</item>
+        <item>64</item>
+        <item>Tidore</item>
+      </line>
+      <line>
+        <item>65</item>
+        <item>65</item>
+        <item>Manokwari barat</item>
+      </line>
+      <line>
+        <item>66</item>
+        <item>66</item>
+        <item>Sorong Kota</item>
+      </line>
+      <line>
+        <item>67</item>
+        <item>67</item>
+        <item>Jayapura utara</item>
+      </line>
+      <line>
+        <item>68</item>
+        <item>68</item>
+        <item>Merauke</item>
+      </line>
+      <line>
+        <item>69</item>
+        <item>69</item>
+        <item>Wamena</item>
+      </line>
+      <line>
+        <item>70</item>
+        <item>70</item>
+        <item>Nabire</item>
+      </line>
+      <line>
+        <item>71</item>
+        <item>71</item>
+        <item>Mimika Baru</item>
+      </line>
+      <line>
+        <item>72</item>
+        <item>72</item>
+        <item>Agats</item>
+      </line>
+      <line>
+        <item>73</item>
+        <item>73</item>
+        <item>Sorong Kota</item>
+      </line>
+      <line>
+        <item>74</item>
+        <item>74</item>
+        <item>Fakfak Kota</item>
+      </line>
+      <line>
+        <item>75</item>
+        <item>75</item>
+        <item>Manokwari Selatan</item>
+      </line>
+    </data>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -801,60 +941,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
-      <yloc>64</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>CurrentDate</name>
-      </field>
-      <field>
-        <name>incrementDay</name>
-      </field>
-      <field>
-        <name>streamDate</name>
-      </field>
-      <field>
-        <name>streamYear</name>
-      </field>
-      <field>
-        <name>streamMonth</name>
-      </field>
-      <field>
-        <name>streamDay</name>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>CurrentData</name>
-      </remove>
-      <remove>
-        <name>incrementDay</name>
-      </remove>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>112</xloc>
-      <yloc>160</yloc>
+      <xloc>144</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -869,14 +957,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection/>
-    <schema/>
-    <table/>
+    <connection>conn_dm_kecamatan</connection>
+    <schema>ExpedisiHouse</schema>
+    <table>dim_kecamatan</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -887,6 +975,18 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>Id_Kecamatan</column_name>
+        <stream_name>Id_Kecamatan</stream_name>
+      </field>
+      <field>
+        <column_name>Id_Kota</column_name>
+        <stream_name>Id_Kota</stream_name>
+      </field>
+      <field>
+        <column_name>Nama_Kecamatan</column_name>
+        <stream_name>Nama_Kecamatan</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -897,7 +997,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
+      <xloc>272</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
