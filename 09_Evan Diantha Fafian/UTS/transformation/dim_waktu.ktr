@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>dim_statuspengiriman_evan</name>
+    <name>dim_waktu</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,83 +427,20 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/24 08:20:03.775</created_date>
+    <created_date>2025/04/26 21:31:41.096</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/24 08:20:03.775</modified_date>
+    <modified_date>2025/04/26 21:31:41.096</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>conn_dw_ekspedisi_evan</name>
+    <name>conn_dw_toko_barokah</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>dw_ekspedisi_evan</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted </password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
-        <attribute>500</attribute>
-      </attribute>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
-        <attribute>true</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>3306</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>STREAM_RESULTS</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>conn_phi_ekspedisi_evan</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>phi_ekspedisi_evan</database>
+    <database>dw_toko_barokah</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted </password>
@@ -564,26 +500,172 @@
   </connection>
   <order>
     <hop>
-      <from>tabel status pengiriman</from>
-      <to>filter kode pengiriman</to>
+      <from>tanggal awal</from>
+      <to>rentang hari</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>rentang hari</from>
+      <to>Hitung hari</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Hitung hari</from>
+      <to>bulan</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>nama bulan</from>
+      <to>bulan</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>bulan</from>
+      <to>sk_waktu</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sk_waktu</from>
+      <to>atur kolom</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>atur kolom</from>
-      <to>dim_statuspengiriman</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter kode pengiriman</from>
-      <to>sk_status</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>sk_status</from>
-      <to>atur kolom</to>
+      <to>dim waktu</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>Hitung hari</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>Tanggal</field_name>
+      <calc_type>ADD_DAYS</calc_type>
+      <field_a>Tanggal_awal</field_a>
+      <field_b>hari_selanjutnya</field_b>
+      <field_c/>
+      <value_type>Date</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>yyyy-MM-dd</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Tahun</field_name>
+      <calc_type>YEAR_OF_DATE</calc_type>
+      <field_a>Tanggal</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>quarter_int</field_name>
+      <calc_type>QUARTER_OF_DATE</calc_type>
+      <field_a>Tanggal</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>quarter_cons</field_name>
+      <calc_type>CONSTANT</calc_type>
+      <field_a>Q</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Kuartal</field_name>
+      <calc_type>ADD</calc_type>
+      <field_a>quarter_cons</field_a>
+      <field_b>quarter_int</field_b>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Bulan</field_name>
+      <calc_type>MONTH_OF_DATE</calc_type>
+      <field_a>Tanggal</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Hari</field_name>
+      <calc_type>DAY_OF_MONTH</calc_type>
+      <field_a>Tanggal</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>atur kolom</name>
     <type>SelectValues</type>
@@ -597,14 +679,22 @@
     </partitioning>
     <fields>
       <field>
-        <name>sk_status</name>
+        <name>sk_waktu</name>
       </field>
       <field>
-        <name>Kode_statuspengiriman</name>
+        <name>Hari</name>
       </field>
       <field>
-        <name>Nama</name>
-        <rename>StatusPengiriman</rename>
+        <name>Kuartal</name>
+      </field>
+      <field>
+        <name>Bulan</name>
+      </field>
+      <field>
+        <name>Tahun</name>
+      </field>
+      <field>
+        <name>Tanggal</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -617,13 +707,55 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>368</yloc>
+      <xloc>880</xloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>dim_statuspengiriman</name>
+    <name>bulan</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>nama bulan</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>Bulan</name>
+        <field>no_bulan</field>
+      </key>
+      <value>
+        <name>nama_bulan</name>
+        <rename>nama_bulan</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>dim waktu</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -633,9 +765,9 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_dw_ekspedisi_evan</connection>
+    <connection>conn_dw_toko_barokah</connection>
     <schema/>
-    <table>dim_statuspengiriman</table>
+    <table>dim_waktu</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -661,14 +793,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
-      <yloc>208</yloc>
+      <xloc>544</xloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>filter kode pengiriman</name>
-    <type>Unique</type>
+    <name>nama bulan</name>
+    <type>DataGrid</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -677,16 +809,82 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
     <fields>
       <field>
-        <name>Kode_statuspengiriman</name>
-        <case_insensitive>N</case_insensitive>
+        <name>no_bulan</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+      <field>
+        <name>nama_bulan</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
       </field>
     </fields>
+    <data>
+      <line>
+        <item>1</item>
+        <item>Januari</item>
+      </line>
+      <line>
+        <item>2</item>
+        <item>Februari</item>
+      </line>
+      <line>
+        <item>3</item>
+        <item>Maret</item>
+      </line>
+      <line>
+        <item>4</item>
+        <item>April</item>
+      </line>
+      <line>
+        <item>5</item>
+        <item>Mei</item>
+      </line>
+      <line>
+        <item>6</item>
+        <item>Juni</item>
+      </line>
+      <line>
+        <item>7</item>
+        <item>Juli</item>
+      </line>
+      <line>
+        <item>8</item>
+        <item>Agustus</item>
+      </line>
+      <line>
+        <item>9</item>
+        <item>September</item>
+      </line>
+      <line>
+        <item>10</item>
+        <item>Oktober</item>
+      </line>
+      <line>
+        <item>11</item>
+        <item>November</item>
+      </line>
+      <line>
+        <item>12</item>
+        <item>Desember</item>
+      </line>
+    </data>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -696,13 +894,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>368</yloc>
+      <xloc>800</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>sk_status</name>
+    <name>rentang hari</name>
     <type>Sequence</type>
     <description/>
     <distribute>Y</distribute>
@@ -712,14 +910,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>sk_status</valuename>
+    <valuename>hari_selanjutnya</valuename>
     <use_database>N</use_database>
-    <connection/>
+    <connection>conn_dw_toko_barokah</connection>
     <schema/>
     <seqname>SEQ_</seqname>
     <use_counter>Y</use_counter>
     <counter_name/>
-    <start_at>1</start_at>
+    <start_at>0</start_at>
     <increment_by>1</increment_by>
     <max_value>999999999</max_value>
     <attributes/>
@@ -731,14 +929,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>208</yloc>
+      <xloc>384</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>tabel status pengiriman</name>
-    <type>TableInput</type>
+    <name>sk_waktu</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -747,66 +945,28 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_phi_ekspedisi_evan</connection>
-    <sql>SELECT
-  Kode_statuspengiriman
-, Nama
-FROM phi_ekspedisi_evan.ms_statuspengiriman
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+//var sk_waktu = (Tahun.getInteger() * 10000) + (Bulan.getInteger() * 100) + Hari.getInteger();
+//var sk_waktu = (parseInt(Tahun) * 10000) + (parseInt(Bulan) * 100) + parseInt(Hari);
+var sk_waktu = (Tahun*10000)+(Bulan*10000)+Hari;</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>sk_waktu</name>
+        <rename>sk_waktu</rename>
         <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>Kode_statuspengiriman</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>tabel status pengiriman</origin>
-        <comments>Kode_statuspengiriman</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_ID</date_format_locale>
-        <date_format_timezone>Asia/Bangkok</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>Nama</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>tabel status pengiriman</origin>
-        <comments>Nama</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_ID</date_format_locale>
-        <date_format_timezone>Asia/Bangkok</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
+        <length>16</length>
+        <precision>2</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -816,8 +976,52 @@ FROM phi_ekspedisi_evan.ms_statuspengiriman
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>208</yloc>
+      <xloc>880</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>tanggal awal</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>Tanggal_awal</name>
+        <type>Date</type>
+        <format>yyyy-MM-dd</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>2020-01-01</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <limit>10000</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>224</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
