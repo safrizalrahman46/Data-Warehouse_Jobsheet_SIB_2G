@@ -1,0 +1,15 @@
+No,Field Name,Data Type,Description,Example
+1,Sale Date,Date (DD/MM/YYYY),Date when the customer places the order.,02/08/2021
+2,Buyer,Text,"Customer ID, unique identifier for each customer.",B11
+3,Price,Number,"Original price of the product, before discount and VAT.",25
+4,Coupon Code,Text,Coupon Code used by customers.,SALE111121
+5,Discount Amount,Number,Amount deducted from price based on the coupon code used by customers.,"8,75"
+6,Currency,Text,"Currency of the price, discount amount, and VAT paid.",USD
+7,Transaction ID,Text,Unique number for all sales transaction on the platform.,2222222265
+8,Date Paid,Date (DD/MM/YYYY),Date when customer make the payment.,02/08/2021
+9,Delivery City,Text,City of Customer Addresses,Toronto
+10,Delivery State,Text,State of Customer Addresses,ON
+11,Delivery Country,Text,Country of Customer Addresses,Canada
+13,VAT Paid by Buyer,Number,"VAT Tax paid by customer, based on respective countries regulations.","6,44"
+14,SKU,Text,Unique identifier for each products.,P001
+15,Qty,Number,Quantity of product,1

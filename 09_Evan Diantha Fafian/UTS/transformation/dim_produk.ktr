@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>dim_statuspengiriman_evan</name>
+    <name>dim_produk</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -428,20 +428,20 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/03/24 08:20:03.775</created_date>
+    <created_date>2025/04/26 15:25:05.088</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/03/24 08:20:03.775</modified_date>
+    <modified_date>2025/04/26 15:25:05.088</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>conn_dw_ekspedisi_evan</name>
+    <name>conn_dw_toko_barokah</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>dw_ekspedisi_evan</database>
+    <database>dw_toko_barokah</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted </password>
@@ -500,11 +500,11 @@
     </attributes>
   </connection>
   <connection>
-    <name>conn_phi_ekspedisi_evan</name>
+    <name>conn_phi_toko_barokah</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>phi_ekspedisi_evan</database>
+    <database>phi_toko_barokah</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted </password>
@@ -564,23 +564,23 @@
   </connection>
   <order>
     <hop>
-      <from>tabel status pengiriman</from>
-      <to>filter kode pengiriman</to>
+      <from>tabel produk</from>
+      <to>filter nama produk</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>filter nama produk</from>
+      <to>sk produk</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sk produk</from>
+      <to>atur kolom</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>atur kolom</from>
-      <to>dim_statuspengiriman</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter kode pengiriman</from>
-      <to>sk_status</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>sk_status</from>
-      <to>atur kolom</to>
+      <to>dim produk</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -597,14 +597,24 @@
     </partitioning>
     <fields>
       <field>
-        <name>sk_status</name>
+        <name>sk_produk</name>
+        <rename/>
       </field>
       <field>
-        <name>Kode_statuspengiriman</name>
+        <name>id_produk</name>
+        <rename/>
       </field>
       <field>
-        <name>Nama</name>
-        <rename>StatusPengiriman</rename>
+        <name>nama_produk</name>
+        <rename/>
+      </field>
+      <field>
+        <name>satuan</name>
+        <rename/>
+      </field>
+      <field>
+        <name>harga</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -617,13 +627,146 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>368</yloc>
+      <xloc>752</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>dim_statuspengiriman</name>
+    <name>tabel produk</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>conn_phi_toko_barokah</connection>
+    <sql>SELECT
+  id_produk
+, nama_produk
+, satuan
+, harga
+FROM phi_toko_barokah.produk
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_produk</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table Produk</origin>
+        <comments>id_produk</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_ID</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>nama_produk</name>
+        <length>50</length>
+        <precision>-1</precision>
+        <origin>Table Produk</origin>
+        <comments>nama_produk</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_ID</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>satuan</name>
+        <length>10</length>
+        <precision>-1</precision>
+        <origin>Table Produk</origin>
+        <comments>satuan</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_ID</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>harga</name>
+        <length>22</length>
+        <precision>-1</precision>
+        <origin>Table Produk</origin>
+        <comments>harga</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_ID</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>dim produk</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -633,9 +776,9 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>conn_dw_ekspedisi_evan</connection>
+    <connection>conn_dw_toko_barokah</connection>
     <schema/>
-    <table>dim_statuspengiriman</table>
+    <table>dim_produk</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -661,13 +804,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
-      <yloc>208</yloc>
+      <xloc>752</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>filter kode pengiriman</name>
+    <name>filter nama produk</name>
     <type>Unique</type>
     <description/>
     <distribute>Y</distribute>
@@ -683,7 +826,7 @@
     <error_description/>
     <fields>
       <field>
-        <name>Kode_statuspengiriman</name>
+        <name>nama_produk</name>
         <case_insensitive>N</case_insensitive>
       </field>
     </fields>
@@ -696,13 +839,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>368</yloc>
+      <xloc>512</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>sk_status</name>
+    <name>sk produk</name>
     <type>Sequence</type>
     <description/>
     <distribute>Y</distribute>
@@ -712,7 +855,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>sk_status</valuename>
+    <valuename>sk_produk</valuename>
     <use_database>N</use_database>
     <connection/>
     <schema/>
@@ -731,93 +874,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>tabel status pengiriman</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>conn_phi_ekspedisi_evan</connection>
-    <sql>SELECT
-  Kode_statuspengiriman
-, Nama
-FROM phi_ekspedisi_evan.ms_statuspengiriman
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>Kode_statuspengiriman</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>tabel status pengiriman</origin>
-        <comments>Kode_statuspengiriman</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_ID</date_format_locale>
-        <date_format_timezone>Asia/Bangkok</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>Nama</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>tabel status pengiriman</origin>
-        <comments>Nama</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_ID</date_format_locale>
-        <date_format_timezone>Asia/Bangkok</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>272</xloc>
-      <yloc>208</yloc>
+      <xloc>512</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
