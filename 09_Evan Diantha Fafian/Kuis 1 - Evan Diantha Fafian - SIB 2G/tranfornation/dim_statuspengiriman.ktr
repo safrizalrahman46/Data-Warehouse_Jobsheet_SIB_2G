@@ -766,7 +766,7 @@ FROM phi_ekspedisi_evan.ms_statuspengiriman
         <name>Kode_statuspengiriman</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>Table input</origin>
+        <origin>tabel status pengiriman</origin>
         <comments>Kode_statuspengiriman</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
@@ -789,7 +789,7 @@ FROM phi_ekspedisi_evan.ms_statuspengiriman
         <name>Nama</name>
         <length>255</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>tabel status pengiriman</origin>
         <comments>Nama</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
