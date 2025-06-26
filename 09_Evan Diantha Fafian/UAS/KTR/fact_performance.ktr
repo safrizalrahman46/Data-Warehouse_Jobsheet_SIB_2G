@@ -505,18 +505,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Stream lookup</from>
-      <to>Stream lookup 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>dim_employee</from>
       <to>Stream lookup 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Stream lookup 2</from>
-      <to>Stream lookup 3</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -552,6 +542,31 @@
     <hop>
       <from>Data validator</from>
       <to>Stream lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup</from>
+      <to>konversi 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>konversi 2</from>
+      <to>Stream lookup 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup 2</from>
+      <to>konversi 3</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>konversi 3</from>
+      <to>Stream lookup 3</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup 2</from>
+      <to>Stream lookup 3</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1083,7 +1098,23 @@ FROM dw_employee_performance.dim_time
     </partitioning>
     <fields>
       <field>
-        <name>id_time</name>
+        <name>base_pay</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Position ID</name>
+        <rename/>
+      </field>
+      <field>
+        <name>job_title</name>
+        <rename/>
+      </field>
+      <field>
+        <name>employee_identifier</name>
+        <rename/>
+      </field>
+      <field>
+        <name>original_hire_date</name>
         <rename/>
       </field>
       <field>
@@ -1096,14 +1127,6 @@ FROM dw_employee_performance.dim_time
       </field>
       <field>
         <name>Fiscal Period</name>
-        <rename/>
-      </field>
-      <field>
-        <name>id_employee</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Base Pay</name>
         <rename/>
       </field>
       <field>
@@ -1172,29 +1195,19 @@ FROM dw_employee_performance.dim_time
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>CSV file input</from>
+    <from>dim_job</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>
       <key>
-        <name>job_title</name>
-        <field>Position ID</field>
-      </key>
-      <key>
-        <name>id_job</name>
-        <field>Position ID</field>
-      </key>
-      <value>
         <name>Position ID</name>
-        <rename>Position ID</rename>
-        <default/>
-        <type>None</type>
-      </value>
+        <field>id_job</field>
+      </key>
       <value>
-        <name>Base Pay</name>
-        <rename>Base Pay</rename>
+        <name>job_title</name>
+        <rename>job_title</rename>
         <default/>
         <type>None</type>
       </value>
@@ -1217,36 +1230,32 @@ FROM dw_employee_performance.dim_time
     <name>Stream lookup 2</name>
     <type>StreamLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>Stream lookup</from>
+    <from>dim_employee</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>
       <key>
-        <name>id_employee</name>
-        <field>Position ID</field>
-      </key>
-      <key>
-        <name>employee_identifier</name>
-        <field>Position ID</field>
+        <name>Position ID</name>
+        <field>id_employee</field>
       </key>
       <value>
-        <name>Position ID</name>
-        <rename>Position ID</rename>
+        <name>employee_identifier</name>
+        <rename>employee_identifier</rename>
         <default/>
         <type>None</type>
       </value>
       <value>
-        <name>Base Pay</name>
-        <rename>Base Pay</rename>
+        <name>original_hire_date</name>
+        <rename>original_hire_date</rename>
         <default/>
         <type>None</type>
       </value>
@@ -1276,33 +1285,31 @@ FROM dw_employee_performance.dim_time
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>Stream lookup 2</from>
+    <from>dim_time</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>
       <key>
-        <name>Fiscal Year</name>
-        <field>employee_identifier</field>
-      </key>
-      <key>
-        <name>Fiscal Quarter</name>
-        <field>employee_identifier</field>
-      </key>
-      <key>
-        <name>Fiscal Period</name>
-        <field>employee_identifier</field>
+        <name>original_hire_date</name>
+        <field>id_time</field>
       </key>
       <value>
-        <name>id_employee</name>
-        <rename>id_employee</rename>
+        <name>Fiscal Year</name>
+        <rename>Fiscal Year</rename>
         <default/>
         <type>None</type>
       </value>
       <value>
-        <name>Base Pay</name>
-        <rename>Base Pay</rename>
+        <name>Fiscal Quarter</name>
+        <rename>Fiscal Quarter</rename>
+        <default/>
+        <type>None</type>
+      </value>
+      <value>
+        <name>Fiscal Period</name>
+        <rename>Fiscal Period</rename>
         <default/>
         <type>None</type>
       </value>
@@ -1454,6 +1461,96 @@ FROM dw_employee_performance.dim_time
     <GUI>
       <xloc>240</xloc>
       <yloc>416</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>konversi 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>Base Pay</name>
+        <rename>base_pay</rename>
+        <type>Number</type>
+        <length>8</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>konversi 3</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>employee_identifier</name>
+        <rename>employee_identifier</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
